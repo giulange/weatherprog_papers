@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{weatherprog N1 publishing quality-controlled data from heterogeneous stations}
+\author{Giuliano Langella}
+\date{February 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+%journal: Computers and Electronics in Agriculture
+% https://www.journals.elsevier.com/computers-and-electronics-in-agriculture
+
+Include the big picture:
+The Earth Critical Zone requires that models such as SPA and pest models have quality checked data.
+
+
+\begin{itemize}
+    \item Problem statement: Conelli
+    \item Related work
+    \item Objectives
+\end{itemize}
+
+\section{Materials and Methods}
+
+\subsection{Study Area}
+
+Campania Region
+
+\begin{itemize}
+    \item Physiographic analysis
+\end{itemize}
+
+\subsection{Materials}
+
+\subsubsection{Agrometereological network (RAR) monitoring}
+
+\subsubsection{Monitoring with Low-Cost Station (Massimo)}
+
+\begin{itemize}
+    \item Hardware components
+    \begin{itemize}
+        \item Base board
+        \item Sensors
+        \item Network chip
+    \end{itemize}
+    \item Firmware logic
+\end{itemize}
+
+\subsubsection{Weatherprog (Giuliano)}
+Development of a software program called WeatherProg to automatically manage agrometeorological data. The first implementation was carried out accoridng to the requirements of the SOILCONS-WEB (LIFE08 ENV/IT/000408) Project but the program was progressively modified and updated in order to be accommodate the requirements of both the URCoFi Agreement and the innovative startup GeoProc Service s.r.l.
+Temperature, rainfall, relative humidity, solar radiation, atmospheric pressure and wind speed are the agrometeorological variables commonly handled by the program using different temporal scales aggregating the most fundamental units of measurements (i.e. the 10-minute measurements are commonly aggregated to build hourly and daily data). WeatherProg performs the following operations:
+(i).	The real-time report with measurements from all sensors and stations belonging to a monitoring network arrives to WeatherProg via a (S)FTP transfer. [data retrieval]
+(ii).	The report is decoded according to time scale and sensors and data is sotred in PostgreSQL. [data decoding]
+(iii).	Quality check of time series to automatically recognize good measurements from wrong and missing ones which are flagged as unavailable for subsequent infilling. An anomalous datum is recognized thanks to different kinds of and interlinked quality checks such as logical, climatologic, spatial, temporal and persistency checks. Certification of abnormality is semi-automatic and is the result of the combination of the data-driven WeatherProg checking procedure and the knowledge-based human checking in order to finally assign the definitive flag (such as GOOD, WRONG and so on).
+(iv).	Anomalies and missing data are all flagged to be interpolated by means of an automatic linear regression procedure. Different methods of interpolations are available such as a deterministic method (based on moving average with growing kernel) or a statistical method (a stepwise multilinear regression using other stations after an optimization step). [data infilling]
+(v).	Spatial interpolation of point data considering the scale of the application that is requesting WeatherProg to produce digital maps. 3-D climatic data cubes (Latitude-Longitute-Time) are produced which allow queries along any of the dimension (such as slicing, dicing and trimming). The methods available for spatial interpolation are the IDW (parameterized inverse distance weithed), different flavors of kriging (ordinary, regressive), and a PRISM-like approach. [spatial interpolation].
+
+\subsection{Methods}
+
+\begin{itemize}
+    \item Automatic quality control
+    \begin{itemize}
+        \item Semi-automatic on demand
+    \end{itemize}
+    \item Integration
+    \begin{itemize}
+        \item Per-variable comparison between permanent and low-cost stations co-located at Pignataro Maggiore
+        \item Evaluate "scostamento" in raw data between LC and P stations (all variables) to assess performance of the LC station
+        \item After quality control (temperature, rainfall)
+        \begin{itemize}
+            \item Re-evaluate difference LC-P to re-assess performance after quality control and data reconstruction 
+            \item Evaluate effect of LC stations error
+            \begin{itemize}
+                \item Pure thermal accumulation
+                \item Biological application
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Results}
+Specular structure of Methods
+
+\section{Discussion}
+\begin{itemize}
+    \item Are the low-cost stations good enough for
+    \begin{itemize}
+        \item Subsequent applications
+        \begin{itemize}
+            \item Quality control
+            \item Data reconstruction
+            \item Biological applications
+        \end{itemize}
+        \item Data publication
+        \begin{itemize}
+            \item Is it needed to inform end-users of the difference between the two kinds of station of can it be omitted?
+        \end{itemize}
+    \end{itemize}
+    \item Short time interval, and only one point, for evaluation
+\end{itemize}
+
+\section{Conclusions}
+
+\end{document}
