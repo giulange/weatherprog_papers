@@ -77,8 +77,8 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{weatherprog N1 publishing quality-controlled data from heterogeneous stations}
-%\title{}
+%\title{weatherprog N1 publishing quality-controlled data from heterogeneous stations}
+\title{A cyber-physical infrastructure for agricultural meteorology and planning}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -163,7 +163,7 @@ The ECZ is a heterogeneous system extending from the top of the vegetation canop
 Weather and climate are the most important dynamic components of the ECZ determining the physical condition in which animals and plants are grown.
 Agricultural meteorology is concerned with the monitoring of weather and the characterisation of the meteorological, hydrological and pedological factors that have a direct effect on agriculture and the production of crop and livestocks.
 % http://www.agriinfo.in/default.aspx?page=topic&superid=1&topicid=377
-Agricultural meteorology is deemed important considering the large amount of ground stations available worldwide to monitor the behaviour of weather elements, notwithstanding, for instance, the huge amounts of air-borne proxy products coming from a massive satellite monitoring.
+Agricultural meteorology is deemed important considering the large amount of ground stations available worldwide to monitor the behaviour of weather elements, notwithstanding, for instance, the huge amounts of air-borne proxy products coming from massive satellite monitoring.
 Indeed, it helps (search one or more REFs for each item): 
     \begin{enumerate*}
         \item understanding the realisation of several crop parameters such as the growing season and the harvesting time;
@@ -174,7 +174,7 @@ Indeed, it helps (search one or more REFs for each item):
         \item forecasting plant pests and diseases.
     \end{enumerate*}
 
-Therefore there is an increasing demand for the production of digital climatic data of good quality within the earth critical zone both 
+There is an increasing demand for the production of digital climatic data of good quality within the earth critical zone both 
     for practical applications (e.g. the need to know climatic patterns in a farm to improve the management),
     and
     for research and development, in particular to simulate the soil-plant-atmosphere system and the risk of pests.
@@ -186,7 +186,7 @@ One example working in USA with daily data, is given by the expert-based model c
 
 % ==== Aim ====
 %Support systems to agrometeorological practices and services comprise data (so quantification), research, training/education/extension and policy environments. Especially in industrialized countries mathematical models are increasingly used in operational agricultural meteorology, in conjunction with Geographic Information Systems (GISs) to provide inputs to Decision Support Systems (DSSs).
-Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
+[ENHANCE]Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
 
 \ldots there is a huge production of DSS on quite every aspect of the agricultural or forestry systems \ldots
 
@@ -197,75 +197,51 @@ WeatherProg has the key advantage of implementing all the tasks from gathering t
 Together with the presentation of the general template WB-SDSS, the results of applying the MyNameIsBeautiful GCI to a specific case study, that is in Campania Region, is shown with the specific focus of producing data of good quality.
 The task consists in tuning a fully automatic or assisted procedure to quality check the measurements at the gauged points.
 This is of particular relevance given on one hand some limitations, such as the eco-environmental complexity of the study area, the scarcity of stations and the lack of long term time series for any station, and on the other hand the urgent need for monitoring and sharing agrometeorological data (highlight the important step forward thanks to our GCI) and the urgent need for a system to assist the production of bulletins to help mitigate the effects of alien or autochthonous pests.
-[ENHANCE!] The need for tools than can enhance the climatic data distribution, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological publication to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.
 
-\section{Materials}
+[ENHANCE!] The need for tools that can enhance the climatic data distribution, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological publication to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.
+
+\section{The cyber-physical infrastructure MyNameIsBeautiful}
+%Central to the design of an effective automated data-processing system is the database. The telecommunications subsystem database must hold:
+%(a) Bulletins of incoming messages;
+%(b) Locally generated observations;
+%(c) Products for national dissemination;
+%(d) Bulletins of locally generated observations for transmission on the GTS.
+%The applications subsystem database must hold:
+%(a) Reports derived from decoded bulletins;
+%(b) Fields derived from decoded bulletins;
+%(c) Products prepared through the processing of reports and fields.
+%If possible, the database residing in each computer should be controlled by the same database
+%management system (DBMS), which should be relatively simple so as to minimize computing overheads and facil- itate the speed of response of the overall data-processing system.
+
+\begin{itemize}
+    \item explain the micro-virtualization with docker ecosystem according to recent cutting-edge IT tendency
+    \item every piece of the system is a dedicated docker container, such as the the (S)FTP service receiving the hourly bullettins from the agency in charge of the permanent stations
+\end{itemize}
+
+[COPIED]The architecture of the proposed cyber-physical infrastructure, MyNameIsBeautiful, is illustrated in \cref{cyberPhysicalSystemFig}.
+The sensor networks on the territory provide input data to the system.
+Raw data are collected by the CAR, which sends them to the WeatherProg engine on hourly basis with a lag of one hour from the real time measurement.
+However, the format of the received data is not suitable for subsequent climatic operations, hence the first task of the WeatherProg software is to decode the received data, and store it in a WMO-compliant climatic data base, developed using the PostgreSQL relational DBMS \cite{postgres}.
 
 \begin{figure}
 	\centering
 	\includegraphics[scale=.5]{figures/fullSystem_GCI.pdf}
-	\caption{High level architecture of the proposed cyber-physical system}
+	\caption{High level architecture of the MyNameIsBeautiful cyber-physical system}
 	\label{cyberPhysicalSystemFig}
 \end{figure}
 
-\subsection{Study area}
-[COPIED] Located in southern Italy between \ang{13;45;}E, \ang{15;49;}E, \ang{39;59;}N and \ang{41;31;}N, Campania is the third most populated region of the country, but due to its extension of about \SI{13600}{\metre\squared}, it is the most densely populated region of Italy.
-Its inland is occupied by the Apennine Mountains, oriented roughly NW-SE, whereas the Sele and Campana plains border the coast.
-The Sele plain is named after the river which traverse it, while the Campana plan is traversed by the Volturno river.
-Nevertheless, the majority of the regional territory is hilly, for the 50\% of the territory, against the 35\% mountainous and the 15\% flat.
-Consequently, the elevation ranges from \SIrange{0}{1904}{\metre} above mean sea level.
+[COPIED]WeatherProg then performs a range of quality controls to spot and flag anomalous measurements, and reconstructs both wrong and missing data.This step purposedly involves some manual intervention from an human expert, in order to finally decide from the wrongness of anomalous data. In fact, apart from clear-cut correct and clear-cut wrong measurements, there is a range of suspicious cases which may or may not be correct. In such cases, rather than trying to make a guess, the measurement is flagged as suspicious and left to the human expertise for the ultimate decision. For the case study described in this paper, the human experts are the regional officers of the CAR. A Web-based dashboard allows the expert to review the output of the quality control and make the ultimate decisions. Moreover, the dashboard allows also to configure some of the parameters of the models embedded in WeatherProg.
 
-    It covers an area of about 13,600 km2, and is the third most populated region in Italy.
-    AGRONOMIC INFO\dots e.g. the production of products of particular quality (DOP, IGP, DOC, DOCG; \dots)\\
-    AGRO-ECONOMY\dots e.g. the ecomic value of the regional production in the primary sector\\
-    Physiographic analysis: La Campania è prevalentemente collinare (50.8\%), il 34.6\% di essa è montuosa e il 14.6\% pianeggiante\\
-    
-    Morphologically, Campania has a complex terrain: the Apennine Mountains in its eastern sector are oriented roughly NW–SE, while the coastal plains of Campana and Sele occupy its west, traversed by the Volturno and Sele Rivers respectively.
-    The Campana plain, developed in subsiding grabens, is infilled by abundant sediments originating from Apennine chain erosion and the products of intense volcanic activity.
-    In addition to sedimentary rocks (limestone, siliceous schist and terrigenous sediments), the plain contains volcanic rocks (potassic/ultrapotassic lavas and pyroclastics) from Roccamonfina, Somma–Vesuvius Mts., Campi Flegrei and Ischia.
-    Elevation range from zero to 1904 m above mean sea level.
-    Agrometeorologial stations are located from XXX m to YYY m above mean surface level.
-    %A second study area is Cilento, a geographical district of about 6000 km2 in southern Campania delimited by the Sele plain to the north. It consists mainly of hills in stratified flysch (Alento wa- tershed) and limestone reliefs (Mt. Alburno, Mt. Cervati, etc.).
-    %Its landscapes also include marine landforms.
-    %This area is characterized by a very sparse rain gauge network, and was selected specifically to evaluate the performance of the bootstrapping technique on a more limited dataset.
+[COPIED]The following step of the climate data management chain performed by WeatherProg is the production of digital climatic maps of relevant variables. According to the needs of the pest risk models which will consume them, digital maps of both fundamental variables like temperature or rainfall, and derived variables like evapotranspiration, can be produced by WeatherProg.
 
-\subsection{The cyber-physical infrastructure}
+[COPIED]Digital maps are stored in a raster database called \emph{rasdaman} (\emph{Raster Data Manager}) \cite{baumann:rasdaman}, which makes  available the datacube representation. A \emph{datacube} is a representation of a digital map with more than two dimensions, where the additional dimensions can encode additional information. The simplest case is a three-dimensional map where the x and y dimensions represent easting and northing as usual, while the z dimension represents the time of the digital map. This datacube can actually be regarded as an "array of digital maps", where each element of the array is a digital map at a specific point in time. Example of datacubes are shown in \cref{datacubeExampleFig}.
 
-Central to the design of an effective automated data-processing system is the database. The telecommunications subsystem database must hold:
-(a) Bulletins of incoming messages;
-(b) Locally generated observations;
-(c) Products for national dissemination;
-(d) Bulletins of locally generated observations for transmission on the GTS.
-The applications subsystem database must hold:
-(a) Reports derived from decoded bulletins;
-(b) Fields derived from decoded bulletins;
-(c) Products prepared through the processing of reports and fields.
-If possible, the database residing in each computer should be controlled by the same database
-management system (DBMS), which should be relatively simple so as to minimize computing overheads and facil- itate the speed of response of the overall data-processing system.
-    
-\subsubsection{Official agrometereological network (RAR) monitoring}\label{RARStructure}
-The agrometereological monitoring is in charge of the Agrometereological Regional Centre (CAR) under the Department for Agriculture of the Campania Region. The station network run by the CAR includes, at the time of this writing, 34 stations spanning an elevation range from \SIrange{11}{794}{\metre} a.m.s.l.
+[COPIED]Once datacubes have been created by WeatherProg and inserted into rasdaman, pest risk models can be run, representing the last link of the chain. Thanks to the datacubes, a mechanistic pest model can be run on whatever point within the study area. Moreover, a pest risk map may also be produced by running the model over an area of interest. \Cref{datacubeOperationsFig} graphically explains how operations on datacubes work.
 
-Not only the number of available stations is too limited to properly capture the aforementioned complexity of the regional environment, but also the equipment of these stations is highly variable.
-All the stations measure air temperature, rainfall and air humidity, but for 10 stations these are the only climatic parameters measured.
-Air pressure is measured by only 9 stations.
-All the 11 fundamental climatic variables are measured by at least one station in the network, but no one station is equipped to measure all the climatic variables.
-
-\begin{itemize}
-    \item The current net inadequately covers the complex territory of the Campania Region, in terms the representativeness over both elevation and geospatial domain.
-    \item the current web application cannot adequately share the measurements according to the requirements of potential users (DELETE:coming form different "productivity" sectors, BETTER: stakeholders), such as agriculture, professionals in agronomy supporting the farmers, livestock farmers, etc.
-\end{itemize}
-
-It is a WMO-compliant monitoring net\\
-Describe the RAR (description of station and db/server)\\
-show a map with locations\\
-present a table with a summary of sensors, duration of monitoring, and so on. \\
-describe FTP setup
-
-
-\subsubsection{Monitoring with Low-Cost Station (Massimo)}
+\subsection{The network of stations and uploading messages [DELETE?]}
+\subsection{Monitoring with Low-Cost Station (Massimo)}
+General description of the low-cost station.
 It is a monitoring net using low-cost and open-source components.
-
 \begin{itemize}
     \item Hardware components
     \begin{itemize}
@@ -276,7 +252,60 @@ It is a monitoring net using low-cost and open-source components.
     \item Firmware logic
 \end{itemize}
 
-\subsubsection{Weatherprog (Giuliano)}
+\subsection{The (bulletins of) incoming messages}\label{decode}
+(low-cost + permanent) (the infrastructural DB + climatic DB)\\
+
+\paragraph{Data model}\textcolor{Red}{Version 3.0, assuming that the merging of the climatic data has been carried out} The data model of the data base has been studied to help maintaining data consistency. Its design allows to avoid a number of unconsistencies thanks to the relational checks performed by the DBMS. 
+
+The data model is illustrated in  \cref{ERD}, which illustrate the logic-level \emph{Entity-Relationship Diagram} (ERD), ready to be implemented in SQL automatically by means of the \emph{pgModeler} \citep{pgmodeler} open source software. For the reader unfamiliar with data modeling, the boxes representing tables of the database, with the fields listed within each box. The diamond-marked links represent a reference from a table to another subject to \emph{referential integrity constraints}, which are validity checks automatically performed by the DBMS. Further details of the model are described in the caption of \cref{ERD}.
+
+Each measurement site is represented by an entry of the \texttt{Station} table. A station is uniquely identified by its coordinates. The toponym field is indispensable since it is employed, along with the station's elevation, by the web application to label the station itself. The date when the station was added to the network is recorded, as well as the withdrawal date for these stations which have been dismantled. The Network field provides support for the integration of different monitoring network, which is discussed in all its aspects in \cref{Integration}.
+
+Additional pieces of information which may be available for the station are stored in separate tables. The advantage of this choice is twofold. Firstly, due to the fact that records are physically stored sequentially in the mass memory,  it is faster to access shorter records rather than having to "jump" unnecessary, often empty fields. Lastly, with this design there is no space allocated in the quite common case that these pieces of information are not available, contrarily to the need to waste space for empty columns. This splitting is profitable since data in the separate tables are not needed by the day-to-day operations of Weatherprog, and are only seldom used by the web application.
+
+The table \texttt{Station Addresses} stores additional information about the location, most notably the farm whether the station is hosted. In fact, this data is more meaningful for the low-cost stations, and it is often not available for the permanent station. The table \texttt{Device} holds additional information about the rig which actually performs the measurements. Currently, only the model of the device is available.
+
+The other fundamental table is the \texttt{Measurements} table. The measurements of all the climatic variables of all the stations are stored in this table. This choice has been made to allow coalescing of accesses, since it has been observed that it is faster to execute a single complex query rather than several simpler queries. More specifically, the controls required by the decoding module can be performed on all the variables simultaneously, and the insertion of new data can be performed with a single SQL statement. Each measurement is uniquely identified by the station which performed it, the climatic variable measured and the date and time of the measurement, and is accompanied by a series of flags, one for each control module, as described in \cref{controlFlags}. It is worth mentioning that, due to the choice of not to have a weird identifier of the stations, the coordinates of the station end up in the \texttt{Measurements} table. The availability of this piece of data allows for avoiding SQL JOINS to perform spatially-parameterized queries on the measurements. Constraints are defined to avoid any "structurally" invalid data.
+
+The \texttt{Equipment} table lists all the climatic variables each station can measure. The fact that is this the referring table of the referential integrity constraint from the \texttt{Measurement} table ensure that a measurement for a variable that a station is not able to measure \textbf{cannot be inserted}, and this is verified directly by the DBMS.
+
+\begin{figure}
+	\includegraphics[scale=.26]{ERD}
+	\caption{The data model for the climatic database. Each box represents a table. Each row in the box represents a field of the table. The yellow key denotes fields which form the Primary Key of the table. The blue circle denotes field which cannot be left empty by any record. Diamond-marked links means relationship within table subject to referential integrity constraints. Fields which are part of the Primary Key and subject to referential integrity constraints are written in green.}
+	\label{ERD}
+\end{figure}
+
+\paragraph{IT-decode} To provide support for data storage, the PostgreSQL Data Base Management System (DBMS) \citep{postgres} has been chosen. PostgreSQL is the fastest relational DBMS, and is open-source; but the most relevant reason for its choice is its comprehensive support of spatial data. PostgreSQL features natively a number of geometric types and operators over them but, most importantly, it comes with an optional, open-source, extension named PostGIS for full support of geographic data. This extension is a cornerstone in our plan for future improvement of the automated system.
+
+Theoretically, Weatherprog could directly access the PostgreSQL database, by embedding SQL queries into the code of its core modules. This approach would strictly couple Weatherprog with the database structure, with the considerable downside of requiring to modify each and every relevant query in the code when a change of the database structure is applied. To enhance modifiability, we chose to have a dedicated persistence module instead. This way, Weatherprog's core modules no longer need to know, and therefore depend upon, every detail of the database architecture, instead it makes meaningful calls to the functions made available by the persistence module. Technically speaking, the persistence module, which is developed taking advantage of the object-oriented features of the Matlab\textsuperscript{\circledR} language, effectively provides an \emph{Application Programming Interface} (API) for using by the other modules of Weatherprog. When a structural change is applied to the database, the modification to the Weatherprog code is concentrated and limited to the persistence module, without affecting the other modules.
+
+\paragraph{IT-qcheck}\label{controlFlags}
+The data storage provides support to the quality control procedures by storing, for each measurement record, one flag for each control module, and a flag for the overall result of the quality control.
+
+Each of the flags for the quality control modules can assume one of the following values:
+\begin{description}
+	\item[UNPROCESSED] The measurement has not been subject to the quality control. \textcolor{Red}{This flag no longer makes sense with the addition of the overall quality control flag, and should not be mentioned if not removed altogether}
+	\item[DISABLED] This quality control module was not enabled for this measurement
+	\item[UNCHECKED] Quality control was performed on this measurement, but this specific quality control module has not been applied yet.
+	\item[CORRECT] This measurement appears to be correct according to this quality control module.
+	\item[DUBIOUS] This measurement is suspicious, according to this quality control module, which cannot decide either for correctness or for wrongness.
+	\item[WRONG] This measurement appears to be wrong according to this quality control module.
+	\item[MISSING] This measurement is not present in the database \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
+	\item[INVERTED] This measurement of a maximum (minimum) value of a climatic variable appears to be inverted with its respective minimum {maximum} \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
+\end{description}
+
+On the other hand, for the overall quality control flag the following values are defined:
+\begin{description}
+	\item[UNPROCESSED] The measurement has not been subject to the quality control.
+	\item[UNDECIDED] The measurement has been subject to some quality control modules, but the procedures have not ended yet.
+	\item[WRONG] The measurement appears to be wrong, according to Weatherprog.
+	\item[DUBIOUS] The quality control procedures cannot decide either for correctness or for wrongness. Manual intervention of an operator is required to estabilish the correctness of the measurement.
+	\item[CORRECT] The measurement appears to be correct, according to Weatherprog.
+\end{description} 
+
+As said earlier in \cref{decode}, there are two periodic runs of Weatherprog in charge of the decoding task. These runs are also useful to perform quality control checks on different windows of data. \textcolor{red}{Details of which controls are executed when, to be provided}
+
+\subsection{WeatherProg (general overview)}
 [COPIED](start linking to soilconsweb but underline today implementation of WeatherProg to demonstrate its usefulness, powerfulness and readiness-of-use)\\
 WeatherProg is a computer program that was developed as the baseline asynchronous engine for the raw weather records handling within the SOILCONS-WEB project (LIFE08 ENV/IT/000408, cite the papers by Langella, 2014 and Terribile et al., 2015)... 
 It was developed because... 
@@ -308,11 +337,57 @@ WeatherProg starts automatically every hour when a new report is available, carr
     Three-dimensional climatic data cubes (easting, northing and time) are produced which allow queries along any of the dimension (such as slicing, dicing and trimming). The methods available for spatial interpolation are the IDW (parameterized inverse distance weithed), different flavors of kriging (ordinary, regressive), and a PRISM-like approach. [spatial interpolation].
 \end{enumerate}
 
-\subsubsection{IT-decode [Raffaele]}\label{decode}
-To provide support for data storage, the PostgreSQL Data Base Management System (DBMS) \citep{postgres} has been chosen. PostgreSQL is the fastest relational DBMS, and is open-source; but the most relevant reason for its choice is its comprehensive support of spatial data. PostgreSQL features natively a number of geometric types and operators over them but, most importantly, it comes with an optional, open-source, extension named PostGIS for full support of geographic data. This extension is a cornerstone in our plan for future improvement of the automated system.
+\subsection{The dashboards}
+agrometeo data consulting (hopefully version 3.0 with QCheck!)\\
+agrometeo network manager (we have something\ldots)\\
+pest service consulting (we have the demo Plasmopara!!!)\\
 
-Theoretically, Weatherprog could directly access the PostgreSQL database, by embedding SQL queries into the code of its core modules. This approach would strictly couple Weatherprog with the database structure, with the considerable downside of requiring to modify each and every relevant query in the code when a change of the database structure is applied. To enhance modifiability, we chose to have a dedicated persistence module instead. This way, Weatherprog's core modules no longer need to know, and therefore depend upon, every detail of the database architecture, instead it makes meaningful calls to the functions made available by the persistence module. Technically speaking, the persistence module, which is developed taking advantage of the object-oriented features of the Matlab\textsuperscript{\circledR} language, effectively provides an \emph{Application Programming Interface} (API) for using by the other modules of Weatherprog. When a structural change is applied to the database, the modification to the Weatherprog code is concentrated and limited to the persistence module, without affecting the other modules.
+\section{Case study: the Campania Region}
+\subsection{Study area}
+[COPIED] Located in southern Italy between \ang{13;45;}E, \ang{15;49;}E, \ang{39;59;}N and \ang{41;31;}N, Campania is the third most populated region of the country, but due to its extension of about \SI{13600}{\metre\squared}, it is the most densely populated region of Italy.
+Its inland is occupied by the Apennine Mountains, oriented roughly NW-SE, whereas the Sele and Campana plains border the coast.
+The Sele plain is named after the river which traverse it, while the Campana plan is traversed by the Volturno river.
+Nevertheless, the majority of the regional territory is hilly, for the 50\% of the territory, against the 35\% mountainous and the 15\% flat.
+Consequently, the elevation ranges from \SIrange{0}{1904}{\metre} above mean sea level.
 
+    It covers an area of about 13,600 km2, and is the third most populated region in Italy.
+    AGRONOMIC INFO\dots e.g. the production of products of particular quality (DOP, IGP, DOC, DOCG; \dots)\\
+    AGRO-ECONOMY\dots e.g. the ecomic value of the regional production in the primary sector\\
+    Physiographic analysis: La Campania è prevalentemente collinare (50.8\%), il 34.6\% di essa è montuosa e il 14.6\% pianeggiante\\
+    
+    Morphologically, Campania has a complex terrain: the Apennine Mountains in its eastern sector are oriented roughly NW–SE, while the coastal plains of Campana and Sele occupy its west, traversed by the Volturno and Sele Rivers respectively.
+    The Campana plain, developed in subsiding grabens, is infilled by abundant sediments originating from Apennine chain erosion and the products of intense volcanic activity.
+    In addition to sedimentary rocks (limestone, siliceous schist and terrigenous sediments), the plain contains volcanic rocks (potassic/ultrapotassic lavas and pyroclastics) from Roccamonfina, Somma–Vesuvius Mts., Campi Flegrei and Ischia.
+    Elevation range from zero to 1904 m above mean sea level.
+    Agrometeorologial stations are located from XXX m to YYY m above mean surface level.
+    %A second study area is Cilento, a geographical district of about 6000 km2 in southern Campania delimited by the Sele plain to the north. It consists mainly of hills in stratified flysch (Alento wa- tershed) and limestone reliefs (Mt. Alburno, Mt. Cervati, etc.).
+    %Its landscapes also include marine landforms.
+    %This area is characterized by a very sparse rain gauge network, and was selected specifically to evaluate the performance of the bootstrapping technique on a more limited dataset.
+
+\subsection{Official agrometereological network (RAR)}\label{RARStructure}
+The agrometereological monitoring is in charge of the Agrometereological Regional Centre (CAR) under the Department for Agriculture of the Campania Region. The station network run by the CAR includes, at the time of this writing, 34 stations spanning an elevation range from \SIrange{11}{794}{\metre} a.m.s.l.
+
+Not only the number of available stations is too limited to properly capture the aforementioned complexity of the regional environment, but also the equipment of these stations is highly variable.
+All the stations measure air temperature, rainfall and air humidity, but for 10 stations these are the only climatic parameters measured.
+Air pressure is measured by only 9 stations.
+All the 11 fundamental climatic variables are measured by at least one station in the network, but no one station is equipped to measure all the climatic variables.
+
+\begin{itemize}
+    \item The current net inadequately covers the complex territory of the Campania Region, in terms the representativeness over both elevation and geospatial domain.
+    \item the current web application cannot adequately share the measurements according to the requirements of potential users (DELETE:coming form different "productivity" sectors, BETTER: stakeholders), such as agriculture, professionals in agronomy supporting the farmers, livestock farmers, etc.
+\end{itemize}
+
+It is a WMO-compliant monitoring net\\
+Describe the RAR (description of station and db/server)\\
+show a map with locations\\
+present a table with a summary of sensors, duration of monitoring, and so on. \\
+describe FTP setup
+
+
+\subsection{Monitoring with Low-Cost Stations (Giuliano)}
+The particular installation performed at 4 (or more) locations\ldots
+
+\subsection{Weatherprog (specific emphasis on QCheck)}
  \paragraph{Decoding of incoming data} Data as received from CAR is not suitable to be inserted into the data base. Each record of the incoming table contains all the measurements of all the climatic variables of all the stations in the RAR; such a record would clearly be poor effective and poor efficient, pointlessly grouping in a single record unrelated data; not to mention that such a record would violate WMO prescriptions about proper handling of climatic data \citep{wcdmp:cdms}.
  
  More importantly, the incoming table labels measurement of the same climatic variable with different names, making any attempt of data analysis impossible. To make things worse, the format of the incoming table is subject to change. The most relevant task of the decoding module is to map the different names of the same climatic variable to a standardised attribute, which is also employed by the database.
@@ -323,56 +398,7 @@ Theoretically, Weatherprog could directly access the PostgreSQL database, by emb
  
 As said earlier in \cref{RARStructure}, data is sent from CAR on an hourly basis,  containing all the measurements of the previous 24 hours. To handle the hourly dispatch and provide data to the end users as soon as they are available, the system is configured to automatically have a run of Weatherprog every hour, by means of the \texttt{cron} daemon of the Unix systems. This hourly run is in charge of updating the database with the data related to the last hour. Late updates of the incoming data are dealt with by another periodic run of Weatherprog, but on daily basis. This daily run works on the whole 24-hour incoming table, check which time ranges are missing within the database and fills them. \textcolor{Red}{It is useful to mention the daily run here, even if it has not been implemented yet}
 
-\begin{figure}
-	\includegraphics[scale=.26]{ERD}
-	\caption{The data model for the climatic database. Each box represents a table. Each row in the box represents a field of the table. The yellow key denotes fields which form the Primary Key of the table. The blue circle denotes field which cannot be left empty by any record. Diamond-marked links means relationship within table subject to referential integrity constraints. Fields which are part of the Primary Key and subject to referential integrity constraints are written in green.}
-	\label{ERD}
-\end{figure}
-
-
-\paragraph{Data model}\textcolor{Red}{Version 3.0, assuming that the merging of the climatic data has been carried out} The data model of the data base has been studied to help maintaining data consistency. Its design allows to avoid a number of unconsistencies thanks to the relational checks performed by the DBMS. 
-
-The data model is illustrated in  \cref{ERD}, which illustrate the logic-level \emph{Entity-Relationship Diagram} (ERD), ready to be implemented in SQL automatically by means of the \emph{pgModeler} \citep{pgmodeler} open source software. For the reader unfamiliar with data modeling, the boxes representing tables of the database, with the fields listed within each box. The diamond-marked links represent a reference from a table to another subject to \emph{referential integrity constraints}, which are validity checks automatically performed by the DBMS. Further details of the model are described in the caption of \cref{ERD}.
-
-Each measurement site is represented by an entry of the \texttt{Station} table. A station is uniquely identified by its coordinates. The toponym field is indispensable since it is employed, along with the station's elevation, by the web application to label the station itself. The date when the station was added to the network is recorded, as well as the withdrawal date for these stations which have been dismantled. The Network field provides support for the integration of different monitoring network, which is discussed in all its aspects in \cref{Integration}.
-
-Additional pieces of information which may be available for the station are stored in separate tables. The advantage of this choice is twofold. Firstly, due to the fact that records are physically stored sequentially in the mass memory,  it is faster to access shorter records rather than having to "jump" unnecessary, often empty fields. Lastly, with this design there is no space allocated in the quite common case that these pieces of information are not available, contrarily to the need to waste space for empty columns. This splitting is profitable since data in the separate tables are not needed by the day-to-day operations of Weatherprog, and are only seldom used by the web application.
-
-The table \texttt{Station Addresses} stores additional information about the location, most notably the farm whether the station is hosted. In fact, this data is more meaningful for the low-cost stations, and it is often not available for the permanent station. The table \texttt{Device} holds additional information about the rig which actually performs the measurements. Currently, only the model of the device is available.
-
-The other fundamental table is the \texttt{Measurements} table. The measurements of all the climatic variables of all the stations are stored in this table. This choice has been made to allow coalescing of accesses, since it has been observed that it is faster to execute a single complex query rather than several simpler queries. More specifically, the controls required by the decoding module can be performed on all the variables simultaneously, and the insertion of new data can be performed with a single SQL statement. Each measurement is uniquely identified by the station which performed it, the climatic variable measured and the date and time of the measurement, and is accompanied by a series of flags, one for each control module, as described in \cref{controlFlags}. It is worth mentioning that, due to the choice of not to have a weird identifier of the stations, the coordinates of the station end up in the \texttt{Measurements} table. The availability of this piece of data allows for avoiding SQL JOINS to perform spatially-parameterized queries on the measurements. Constraints are defined to avoid any "structurally" invalid data.
-
-The \texttt{Equipment} table lists all the climatic variables each station can measure. The fact that is this the referring table of the referential integrity constraint from the \texttt{Measurement} table ensure that a measurement for a variable that a station is not able to measure \textbf{cannot be inserted}, and this is verified directly by the DBMS.
-
-
-\section{Methods}
-\subsection{IT-qcheck [Raffaele] * 25-02-2019}\label{controlFlags}
-The data storage provides support to the quality control procedures by storing, for each measurement record, one flag for each control module, and a flag for the overall result of the quality control.
-
-Each of the flags for the quality control modules can assume one of the following values:
-\begin{description}
-	\item[UNPROCESSED] The measurement has not been subject to the quality control. \textcolor{Red}{This flag no longer makes sense with the addition of the overall quality control flag, and should not be mentioned if not removed altogether}
-	\item[DISABLED] This quality control module was not enabled for this measurement
-	\item[UNCHECKED] Quality control was performed on this measurement, but this specific quality control module has not been applied yet.
-	\item[CORRECT] This measurement appears to be correct according to this quality control module.
-	\item[DUBIOUS] This measurement is suspicious, according to this quality control module, which cannot decide either for correctness or for wrongness.
-	\item[WRONG] This measurement appears to be wrong according to this quality control module.
-	\item[MISSING] This measurement is not present in the database \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
-	\item[INVERTED] This measurement of a maximum (minimum) value of a climatic variable appears to be inverted with its respective minimum {maximum} \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
-\end{description}
-
-On the other hand, for the overall quality control flag the following values are defined:
-\begin{description}
-	\item[UNPROCESSED] The measurement has not been subject to the quality control.
-	\item[UNDECIDED] The measurement has been subject to some quality control modules, but the procedures have not ended yet.
-	\item[WRONG] The measurement appears to be wrong, according to Weatherprog.
-	\item[DUBIOUS] The quality control procedures cannot decide either for correctness or for wrongness. Manual intervention of an operator is required to estabilish the correctness of the measurement.
-	\item[CORRECT] The measurement appears to be correct, according to Weatherprog.
-\end{description} 
-
-As said earlier in \cref{decode}, there are two periodic runs of Weatherprog in charge of the decoding task. These runs are also useful to perform quality control checks on different windows of data. \textcolor{red}{Details of which controls are executed when, to be provided}
-
-\subsection{Automatic quality control (semi-automatic on demand) [Giuliano]}
+\paragraph{Automatic quality control (semi-automatic on demand)}
 The quality check reads data stored in a relational database (in our case PostgreSQL)[UP]\\
 and applies a procedure based on a multi-step and variable-oriented procedure.
 
@@ -386,7 +412,7 @@ kind of checks (range, logic, climatologic, temporal, spatial, ...)
     \item qcheck h24, T + R
 \end{itemize}
 
-\subsection{Integration}\label{Integration}
+\subsection{Integration of the monitoring networks}\label{Integration}
 In this paragraph we describe the existence of more monitoring networks having different characteristics in the same study area.
 This means that a higher degree of generality in the logic of the qcheck framework is required.
 For this purpose, we tested the qcheck to both the permanent and low-cost network
@@ -406,7 +432,7 @@ For this purpose, we tested the qcheck to both the permanent and low-cost networ
 
 
 \section{Results}
-Specular structure of Methods
+\ldots
 
 \section{Discussion}
 \begin{itemize}
