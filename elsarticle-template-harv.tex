@@ -47,6 +47,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[capitalize]{cleveref}
 \usepackage[inline]{enumitem}
+\usepackage{siunitx}
 
 \journal{Computers and Electronics in Agriculture}
 
@@ -127,67 +128,93 @@ This work describes a cyber-physical system which has been designed to overcome 
 
 %% main text
 %\section{}\label{}
-\section{Introduction [Giuliano] }
+\section{Introduction}
 
 %journal: Computers and Electronics in Agriculture
 % https://www.journals.elsevier.com/computers-and-electronics-in-agriculture
 
-Include the big picture:
-The Earth Critical Zone requires that models such as SPA and pest models have quality checked data.
+% ==== Big Picture ====
+%Include the big picture: The Earth Critical Zone requires that models such as SPA and pest models have quality checked data.
+%\begin{itemize} 
+%    \item Problem statement
+%    \item Related work
+%    \item Objectives
+%\end{itemize}
 
+% ==== Earth Critical Zone ====
+%It is a living, breathing, constantly evolving boundary layer where rock, soil, water, air, and living organisms interact. These complex interactions regulate the natural habitat and determine the availability of life-sustaining resources, including our food production and water quality.
+%The Critical Zone (CZ) is the support system for all terrestrial ecosystems, extending from unweathered rock to the top of any vegetation canopy. In the CZ, physical, biological, geological and hydrological processes interact at multiple temporal and spatial scales.
+%Earth's critical zone is the “heterogeneous, near surface environment in which complex interactions involving rock, soil, water, air, and living organisms regulate the natural habitat and determine the availability of life-sustaining resources”
+Climate controls the Earth's Critical Zone (ECZ) in combination with other physical, biological and geological processes.
+The ECZ is a heterogeneous system extending from the top of the vegetation canopy to the bottom of unweathered rocks, regulates the availability of resources and modulates the production of ecosystem services such as the filtration and quality of water, and the production of food and fibre.
 
-\begin{itemize}
-    \item Problem statement
-    \item Related work
-    \item Objectives
-\end{itemize}
+% ==== Agricultural Meteorology ====
+% LINKS:
+%   https://books.google.it/books?id=vdFBDwAAQBAJ&pg=PA22&lpg=PA22&dq=importance+of+agrometeo+measurements&source=bl&ots=CmcFAArYyq&sig=ACfU3U1TMqCpGqAv7VZjSz1M_IgPKv1--w&hl=it&sa=X&ved=2ahUKEwjPs_Tdg_vgAhXQ4KQKHYM3B4AQ6AEwAHoECAkQAQ#v=onepage&q=importance%20of%20agrometeo%20measurements&f=false
+%   http://www.agrometeorology.org/files-folder/repository/gamp1.pdf
+%   https://en.wikibooks.org/wiki/Introductory_Agrometeorology/Introduction
+%   http://www.agrilearner.com/agrometeorology-needs-scope/
+%   http://www.agriinfo.in/default.aspx?page=topic&superid=1&topicid=377
 
-There is an increase demand for digital climatic maps both for research and development (there is a gap between the major of scientific modelling approaches that requires digital climate maps and the gauged measurements) and for practical applications (e.g. the need to know climatic patterns in a farm to improve the management).
-The demand is particularly burdensome considering the requirement to handle climatic data at the daily (e.g. in the soil hydrological modelling) or even at the hourly time step (e.g. risk modelling in phytopathology).
-There exist few approaches implementing and deploying automatic spatial inference engines based on climatic data at the daily or even at the hourly time step.
-One example is given by the expert system based PRISM model by \cite{Daly08_PRISM_USA}.
-WeatherProg has the key advantage of implementing all the tasks from the data gathering to the delivery of digital maps and has the potential of being a useful engine for whatever geospatial-based service in which climatic information is of paramount importance.
+%Weather: Physical state of the atmosphere at a given place and given time. Eg. Cloudy day
+%Climate: Long term regime of atmospheric variables of a given place or area. Eg. Cold season
+%and considered as basic input or resources in agricultural planning, every plant process related with growth development and yield of a crop is affected by weather.
 
-\begin{itemize}
-	\item \textbf{increasing demand for digital maps...} (see also the work by ISRIC for 1-km digital soil maps)\\
-	\item \textbf{...for research and development} (there is a gap between the major of scientific modelling approaches that requires digital climate maps and the gauged measurements)\\
-	\item \textbf{...and for practical applications} (e.g. the need to know climatic patterns in a farm to improve the management)\\
-	\item The demand is particularly burdensome considering the requirement to handle climatic data:
-	\begin{itemize}
-		\item at the daily time step (e.g. in the soil hydrological modelling), or even;
-		\item at the hourly time step (e.g. pests risk modelling).
-	\end{itemize}
+Weather and climate are the most important dynamic components of the ECZ determining the physical condition in which animals and plants are grown.
+Agricultural meteorology is concerned with the monitoring of weather and the characterisation of the meteorological, hydrological and pedological factors that have a direct effect on agriculture and the production of crop and livestocks.
+% http://www.agriinfo.in/default.aspx?page=topic&superid=1&topicid=377
+Agricultural meteorology is deemed important considering the large amount of ground stations available worldwide to monitor the behaviour of weather elements, notwithstanding, for instance, the huge amounts of air-borne proxy products coming from a massive satellite monitoring.
+Indeed, it helps (search one or more REFs for each item): 
+    \begin{enumerate*}
+        \item understanding the realisation of several crop parameters such as the growing season and the harvesting time;
+        \item managing crops by means of various farm operations such as fertilisers application and irrigation scheduling;
+        \item assessing the suitability of specific crops in space (by means of agroclimatic zoning) and time (e.g. according to climate change);
+        \item crop and livestock monitoring and modelling;
+        \item understanding the spatial distribution of soils types and properties since climate is one of the soil forming factors recognized in the CLORPT (REF: Jenny) or SCORPAN (REF: MacBratney) models;
+        \item forecasting plant pests and diseases.
+    \end{enumerate*}
 
-	\item The need for tools able to enhance climatic data divulgation, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological divulgation to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.\\
+Therefore there is an increasing demand for the production of digital climatic data of good quality within the earth critical zone both 
+    for practical applications (e.g. the need to know climatic patterns in a farm to improve the management),
+    and
+    for research and development, in particular to simulate the soil-plant-atmosphere system and the risk of pests.
+The demand is particularly burdensome considering the requirement to handle climatic data both at finer temporal scale and in a continuous spatial domain.
+It means that daily (e.g. in the soil hydrological modelling) or even hourly records (e.g. in the phytopathologic risk modelling) measured at point gauges sparsely located in a territory must be transformed in three dimensional climatic data cubes (Longitude, Latitude, Time) by means of statistically sound geospatial procedures.
+% (there is a gap between the major of scientific modelling approaches that requires digital climate maps and the gauged measurements).
+There exist few approaches implementing and deploying automatic spatial inference engines of this kind based on point climatic data at the daily or even at the hourly time step.
+One example working in USA with daily data, is given by the expert-based model called PRISM developed by  \cite{Daly08_PRISM_USA}. (\ldots search for other REFs.)
 
-	\item (**)The importance of tools like WeatherProg able to provide a support for agencies constrained to adopt such technological advancements/improvements to raise the quality of the delivered support they can offer.
+% ==== Aim ====
+%Support systems to agrometeorological practices and services comprise data (so quantification), research, training/education/extension and policy environments. Especially in industrialized countries mathematical models are increasingly used in operational agricultural meteorology, in conjunction with Geographic Information Systems (GISs) to provide inputs to Decision Support Systems (DSSs).
+Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
 
-	\item\textbf{Aims/why of the implementation}\\
-(start linking to soilconsweb but underline today implementation of WeatherProg to demonstrate its usefulness, powerfulness and readiness-of-use)\\
-WeatherProg is a computer program that was developed as the baseline asynchronous engine for the raw weather records handling within the SOILCONS-WEB project (LIFE08 ENV/IT/000408, cite the papers by Langella, 2014 and Terribile et al., 2015)... 
-It was developed because... 
-This project ended in dec-2014, but (go to next sentence, explaining nowadays usage of WeatherProg).\\
-WeatherProg is now used as a geospatial weather engine in a web-based DSS for on-the-fly and real-time (the time interval only depends upon the station data logger query frequence) consulting of agrometeorological variables... allowing temporal/spatial stats queries and embedding CUDA codes (on the client-side GUI) for fast calculation. Then also WeatherProg itself has major CUDA developments in order to speedup crucial and time-consuming calculations such that of making spatial interpolation at any pixel of the study area)\\
+\ldots there is a huge production of DSS on quite every aspect of the agricultural or forestry systems \ldots
 
-	\item(linked to (**)):\\
-There is an evident gap between raw agrometeorological observations made by sensors in gauges in a monitoring network and the necessity to provide public access to data of good quality in the form of multipoint time series or of a temporal stack of digital maps.
-WeatherProg is able to fill this gap and to simplify(stress this concept, i.e. that WeatherProg simplifies al operations!!!!) the implementation of services (that are mandatory!) necessary to support agriculture for todays threatens and to coadiuvate decision making in environmental management. It includes the state of the art of methods embedded in the main modules of the program.
-\end{itemize}
+In this paper a strongly modular Geospatial Cyber-Infrastructure (GCI), called MyNameIsBeautiful, is proposed as a general technological framework being a WB-SDSS, that can be fully tailored to the specific needs of an existent agrometeorological network.
+The proposed GCI is based on a software component, namely WeatherProg \citep{langella:weatherprog2014,langella:weatherprog2016}, which represents the main engine of the information technology system and has the potential of being the basic engine of whatever geospatial-based service in agriculture, in which both the weather and the climatic information is of paramount importance.
+WeatherProg has the key advantage of implementing all the tasks from gathering the raw measurements coming from the agrometeorological sensors till the delivery of digital climatic maps at both daily and hourly time steps.
 
+Together with the presentation of the general template WB-SDSS, the results of applying the MyNameIsBeautiful GCI to a specific case study, that is in Campania Region, is shown with the specific focus of producing data of good quality.
+The task consists in tuning a fully automatic or assisted procedure to quality check the measurements at the gauged points.
+This is of particular relevance given on one hand some limitations, such as the eco-environmental complexity of the study area, the scarcity of stations and the lack of long term time series for any station, and on the other hand the urgent need for monitoring and sharing agrometeorological data (highlight the important step forward thanks to our GCI) and the urgent need for a system to assist the production of bulletins to help mitigate the effects of alien or autochthonous pests.
+[ENHANCE!] The need for tools than can enhance the climatic data distribution, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological publication to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.
 
-\section{Materials and Methods}
+\section{Materials}
 
-\subsection{Materials}
+\begin{figure}
+	\centering
+	\includegraphics[scale=.5]{figures/fullSystem_GCI.pdf}
+	\caption{High level architecture of the proposed cyber-physical system}
+	\label{cyberPhysicalSystemFig}
+\end{figure}
 
-\subsubsection{Official agrometereological network (RAR) monitoring}\label{RARStructure}
+\subsection{Study area}
+[COPIED] Located in southern Italy between \ang{13;45;}E, \ang{15;49;}E, \ang{39;59;}N and \ang{41;31;}N, Campania is the third most populated region of the country, but due to its extension of about \SI{13600}{\metre\squared}, it is the most densely populated region of Italy.
+Its inland is occupied by the Apennine Mountains, oriented roughly NW-SE, whereas the Sele and Campana plains border the coast.
+The Sele plain is named after the river which traverse it, while the Campana plan is traversed by the Volturno river.
+Nevertheless, the majority of the regional territory is hilly, for the 50\% of the territory, against the 35\% mountainous and the 15\% flat.
+Consequently, the elevation ranges from \SIrange{0}{1904}{\metre} above mean sea level.
 
-MAYBE THIS SHOULD BE IN INTRODUCTION, TO STATE THE PROBLEM AND THEN DESCRIBE THE AIM OF OUR WORK (AND HENCE THE OF THE PAPER):\\
-In the following list, you have to describe the complexity of the study area, highlight (i) the limited number of measuring points, (ii) the urgent need for monitoring and sharing of agrometeo data, (iii) the urgent need for an assisted system to produce periodic meteo and pest bulletins.\\
-...the need for a system to assist the produciton of bullettins to help mitigate the effects of alien or autoctonous pests\\
-
-\begin{itemize}
-    \item Study Area: Campania Region\\
-    The Campania region is located in southern Italy between 13.450 E, 15.490 E, 39.590 N, and 41.310 N.
     It covers an area of about 13,600 km2, and is the third most populated region in Italy.
     AGRONOMIC INFO\dots e.g. the production of products of particular quality (DOP, IGP, DOC, DOCG; \dots)\\
     AGRO-ECONOMY\dots e.g. the ecomic value of the regional production in the primary sector\\
@@ -201,17 +228,6 @@ In the following list, you have to describe the complexity of the study area, hi
     %A second study area is Cilento, a geographical district of about 6000 km2 in southern Campania delimited by the Sele plain to the north. It consists mainly of hills in stratified flysch (Alento wa- tershed) and limestone reliefs (Mt. Alburno, Mt. Cervati, etc.).
     %Its landscapes also include marine landforms.
     %This area is characterized by a very sparse rain gauge network, and was selected specifically to evaluate the performance of the bootstrapping technique on a more limited dataset.
-    
-    \item The current net inadequately covers the complex territory of the Campania Region, in terms the representativeness over both elevation and geospatial domain.
-    \item the current web application cannot adequately share the measurements according to the requirements of potential users (DELETE:coming form different "productivity" sectors, BETTER: stakeholders), such as agriculture, professionals in agronomy supporting the farmers, livestock farmers, etc.
-    \item 
-\end{itemize}
-
-It is a WMO-compliant monitoring net\\
-Describe the RAR (description of station and db/server)\\
-show a map with locations\\
-present a table with a summary of sensors, duration of monitoring, and so on. \\
-describe FTP setup
 
 \subsection{The cyber-physical infrastructure}
 
@@ -226,6 +242,25 @@ The applications subsystem database must hold:
 (c) Products prepared through the processing of reports and fields.
 If possible, the database residing in each computer should be controlled by the same database
 management system (DBMS), which should be relatively simple so as to minimize computing overheads and facil- itate the speed of response of the overall data-processing system.
+    
+\subsubsection{Official agrometereological network (RAR) monitoring}\label{RARStructure}
+The agrometereological monitoring is in charge of the Agrometereological Regional Centre (CAR) under the Department for Agriculture of the Campania Region. The station network run by the CAR includes, at the time of this writing, 34 stations spanning an elevation range from \SIrange{11}{794}{\metre} a.m.s.l.
+
+Not only the number of available stations is too limited to properly capture the aforementioned complexity of the regional environment, but also the equipment of these stations is highly variable.
+All the stations measure air temperature, rainfall and air humidity, but for 10 stations these are the only climatic parameters measured.
+Air pressure is measured by only 9 stations.
+All the 11 fundamental climatic variables are measured by at least one station in the network, but no one station is equipped to measure all the climatic variables.
+
+\begin{itemize}
+    \item The current net inadequately covers the complex territory of the Campania Region, in terms the representativeness over both elevation and geospatial domain.
+    \item the current web application cannot adequately share the measurements according to the requirements of potential users (DELETE:coming form different "productivity" sectors, BETTER: stakeholders), such as agriculture, professionals in agronomy supporting the farmers, livestock farmers, etc.
+\end{itemize}
+
+It is a WMO-compliant monitoring net\\
+Describe the RAR (description of station and db/server)\\
+show a map with locations\\
+present a table with a summary of sensors, duration of monitoring, and so on. \\
+describe FTP setup
 
 
 \subsubsection{Monitoring with Low-Cost Station (Massimo)}
@@ -242,7 +277,14 @@ It is a monitoring net using low-cost and open-source components.
 \end{itemize}
 
 \subsubsection{Weatherprog (Giuliano)}
-WeatherProg \citep{Langella14_aiam} is a computer program to automatically manage agrometeorological data.
+[COPIED](start linking to soilconsweb but underline today implementation of WeatherProg to demonstrate its usefulness, powerfulness and readiness-of-use)\\
+WeatherProg is a computer program that was developed as the baseline asynchronous engine for the raw weather records handling within the SOILCONS-WEB project (LIFE08 ENV/IT/000408, cite the papers by Langella, 2014 and Terribile et al., 2015)... 
+It was developed because... 
+This project ended in dec-2014, but (go to next sentence, explaining nowadays usage of WeatherProg).\\
+WeatherProg is now used as a geospatial weather engine in a web-based DSS for on-the-fly and real-time (the time interval only depends upon the station data logger query frequence) consulting of agrometeorological variables... allowing temporal/spatial stats queries and embedding CUDA codes (on the client-side GUI) for fast calculation. Then also WeatherProg itself has major CUDA developments in order to speedup crucial and time-consuming calculations such that of making spatial interpolation at any pixel of the study area)\\
+
+
+WeatherProg \citep{langella:weatherprog2014} is a computer program to automatically manage agrometeorological data.
 The first implementation was carried out as the baseline asynchronous engine for the raw weather records handling in the SOILCONS-WEB project (LIFE08 ENV/IT/000408).
 The program was progressively modified and updated in order to be accommodate the requirements of both (i) Regional Administrative Bodies in charge of data management and publication and bulletins production for pest management, and (ii) the setting of a service in the context of Agriculture 4.0 and advanced IoT.
 
@@ -303,8 +345,8 @@ The other fundamental table is the \texttt{Measurements} table. The measurements
 The \texttt{Equipment} table lists all the climatic variables each station can measure. The fact that is this the referring table of the referential integrity constraint from the \texttt{Measurement} table ensure that a measurement for a variable that a station is not able to measure \textbf{cannot be inserted}, and this is verified directly by the DBMS.
 
 
-\subsection{Methods}
-\subsubsection{IT-qcheck [Raffaele] * 25-02-2019}\label{controlFlags}
+\section{Methods}
+\subsection{IT-qcheck [Raffaele] * 25-02-2019}\label{controlFlags}
 The data storage provides support to the quality control procedures by storing, for each measurement record, one flag for each control module, and a flag for the overall result of the quality control.
 
 Each of the flags for the quality control modules can assume one of the following values:
@@ -330,7 +372,7 @@ On the other hand, for the overall quality control flag the following values are
 
 As said earlier in \cref{decode}, there are two periodic runs of Weatherprog in charge of the decoding task. These runs are also useful to perform quality control checks on different windows of data. \textcolor{red}{Details of which controls are executed when, to be provided}
 
-\subsubsection{Automatic quality control (semi-automatic on demand) [Giuliano]}
+\subsection{Automatic quality control (semi-automatic on demand) [Giuliano]}
 The quality check reads data stored in a relational database (in our case PostgreSQL)[UP]\\
 and applies a procedure based on a multi-step and variable-oriented procedure.
 
@@ -344,7 +386,7 @@ kind of checks (range, logic, climatologic, temporal, spatial, ...)
     \item qcheck h24, T + R
 \end{itemize}
 
-\subsubsection{Integration}\label{Integration}
+\subsection{Integration}\label{Integration}
 In this paragraph we describe the existence of more monitoring networks having different characteristics in the same study area.
 This means that a higher degree of generality in the logic of the qcheck framework is required.
 For this purpose, we tested the qcheck to both the permanent and low-cost network
@@ -385,6 +427,9 @@ Specular structure of Methods
 \end{itemize}
 
 \section{Conclusions}
+[COPIED](**)The importance of tools like the GCI / WeatherProg engine that can provide a support for agencies constrained to adopt such technological advancements/improvements to raise the quality of the delivered support they can offer to farmers and stakeholders.
+[COPIED]There is an evident gap between raw agrometeorological observations made by sensors in gauges in a monitoring network and the necessity to provide public access to data of good quality in the form of multipoint time series or of a temporal stack of digital maps.
+[COPIED]WeatherProg is able to fill this gap and to simplify(stress this concept, i.e. that WeatherProg simplifies al operations!!!!) the implementation of services (that are mandatory!) necessary to support agriculture for todays threatens and to coadiuvate decision making in environmental management. It includes the state of the art of methods embedded in the main modules of the program.
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
