@@ -476,8 +476,8 @@ WeatherProg starts automatically at predefined time intervals when a new report 
 \subsection{The dashboards}[Raffaele][todo]
 \note{May well be merged into the general description, unless we want to be very detailed in the description of what we have}\\
 agrometeo data consulting (hopefully version 3.0 with QCheck!)\\
-agrometeo network manager (we have something\ldots)\\
-pest service consulting (we have the demo Plasmopara!!!)\\
+agrometeo network manager (we have something\ldots) \note{[read the overleaf comment and discuss about this opportunity]}\\
+pest service consulting (we have the demo Plasmopara!!!)\note{[yes, but maybe it's better to move this piece to another paper, where pest models are in place (e.g. the LCN paper!)]}\\
 
 \section{Case study: \gci at work in Campania Region}[Giuliano][todo]
 
@@ -592,25 +592,7 @@ kind of checks (range, logic, climatologic, temporal, spatial, ...)
     \item qcheck h24, T + R
 \end{itemize}
 
-\subsection{\note{[MOVE TO LCN]} Integration of the monitoring networks\label{Integration}}[Giuliano][done]
-In this paragraph we describe the existence of more monitoring networks having different characteristics in the same study area.
-This means that a higher degree of generality in the logic of the qcheck framework is required.
-For this purpose, we tested the qcheck to both the permanent and low-cost network
-\begin{itemize}
-    \item Per-variable comparison between permanent and low-cost stations co-located at Pignataro Maggiore
-    \item Evaluate "scostamento" in raw data between LC and P stations (all variables) to assess performance of the LC station
-    \item After quality control (temperature, rainfall)
-    \begin{itemize}
-        \item Re-evaluate difference LC-P to re-assess performance after quality control and data reconstruction 
-        \item Evaluate effect of LC stations error
-        \begin{itemize}
-            \item Pure thermal accumulation
-            \item Biological application
-        \end{itemize}
-    \end{itemize}
-\end{itemize}
-
-\section{Results}[Giuliano][todo]
+\subsection{Results}[Giuliano][todo]
 \note{[move "Results" to case study]}
 \begin{itemize}
     \item our GCI can be adapted to a (regional) agrometeo monitoring network to produce qchecked point and grid data
@@ -631,6 +613,24 @@ For this purpose, we tested the qcheck to both the permanent and low-cost networ
 \end{itemize}
 
 \note{ elsewhere: [1](allowing temporal/spatial stats queries and embedding CUDA codes (on the client-side GUI) for fast calculation); [2] (Then also WeatherProg itself has major CUDA developments in order to speedup crucial and time-consuming calculations such that of making spatial interpolation at any pixel of the study area).) }
+
+\subsection{\note{[MOVE TO LCN]} Integration of the monitoring networks\label{Integration}}[Giuliano][done]
+In this paragraph we describe the existence of more monitoring networks having different characteristics in the same study area.
+This means that a higher degree of generality in the logic of the qcheck framework is required.
+For this purpose, we tested the qcheck to both the permanent and low-cost network
+\begin{itemize}
+    \item Per-variable comparison between permanent and low-cost stations co-located at Pignataro Maggiore
+    \item Evaluate "scostamento" in raw data between LC and P stations (all variables) to assess performance of the LC station
+    \item After quality control (temperature, rainfall)
+    \begin{itemize}
+        \item Re-evaluate difference LC-P to re-assess performance after quality control and data reconstruction 
+        \item Evaluate effect of LC stations error
+        \begin{itemize}
+            \item Pure thermal accumulation
+            \item Biological application
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
 
 \section{Discussion}[Giuliano][todo]
 
