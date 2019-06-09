@@ -48,6 +48,105 @@
 \usepackage[capitalize]{cleveref}
 \usepackage[inline]{enumitem}
 \usepackage{siunitx}
+\usepackage{xspace} % required by the \gci command
+\usepackage{xparse} % required by the section redefinition
+\usepackage{ifthen} % required by the section redefinition
+
+\newcommand{\note}[1]{\emph{\textcolor{red}{#1}}}
+\newcommand{\update}[1]{\emph{\textcolor{blue}{#1}}}
+\newcommand{\review}[1]{\emph{\textcolor{cyan}{#1}}}
+\newcommand{\temp}[1]{\emph{\textcolor{gray}{#1}}}
+
+\let\plainsection\section
+\RenewDocumentCommand{\section}{s m o o}{
+	\IfBooleanTF{#1}{
+		% starred variant, unmodified
+		\plainsection*{#2}
+	}{
+	    \IfNoValueTF{#3}{
+	        % standard section
+	        \plainsection{#2}
+	    }{
+	        \IfNoValueTF{#4}{
+	            % only the assignee given
+	            \plainsection{#2 (#3)}
+	        }{
+	        	\ifthenelse{
+	        		\equal{#4}{todo}
+	        	}{
+	        		\plainsection{#2 (\textcolor{red}{#3 - TO DO})}
+	        	}{}
+	            \ifthenelse{
+	            	\equal{#4}{wip}
+	            }{
+	            	\plainsection{#2 (\textcolor{red}{#3 - IN PROGRESS})}
+	            }{}  
+	        	\ifthenelse{
+	        		\equal{#4}{update}
+	        	}{
+	        		\plainsection{#2 (\textcolor{blue}{#3 - UPDATE})}
+	        	}{}
+	        	\ifthenelse{
+	        		\equal{#4}{review}
+	        	}{
+	        		\plainsection{#2 (\textcolor{cyan}{#3 - REVIEW})}
+	        	}{}
+	            \ifthenelse{
+	            	\equal{#4}{done}
+	            }{
+	            	\plainsection{#2 (\textcolor{PineGreen}{#3 - READY})}
+	            }{}
+	        }
+	    }
+    }
+}
+
+\let\plainsubsection\subsection
+\RenewDocumentCommand{\subsection}{s m o o}{
+	\IfBooleanTF{#1}{
+		% starred variant, unmodified
+		\plainsubsection*{#2}
+	}{
+		\IfNoValueTF{#3}{
+		    % standard section
+		    \plainsubsection{#2}
+		}{
+		    \IfNoValueTF{#4}{
+		        % only the assignee given
+		        \plainsubsection{#2 (#3)}
+		    }{
+		    	\ifthenelse{
+		    		\equal{#4}{todo}
+		    	}{
+		    		\plainsubsection{#2 (\textcolor{red}{#3 - TO DO})}
+		    	}{}
+		        \ifthenelse{
+		        	\equal{#4}{wip}
+		        }{
+		        	\plainsubsection{#2 (\textcolor{red}{#3 - IN PROGRESS})}
+		        }{}  
+		    	\ifthenelse{
+		    		\equal{#4}{update}
+		    	}{
+		    		\plainsubsection{#2 (\textcolor{blue}{#3 - UPDATE})}
+		    	}{}
+		     	\ifthenelse{
+	        		\equal{#4}{review}
+	        	}{
+	        		\plainsubsection{#2 (\textcolor{cyan}{#3 - REVIEW})}
+	        	}{}
+		        \ifthenelse{
+		        	\equal{#4}{done}
+		        }{
+		        	\plainsubsection{#2 (\textcolor{PineGreen}{#3 - READY})}
+		        }{}
+		    }
+		}
+	}
+}
+
+\newcommand{\gci}{\update{AgriMetSupport}\xspace}
+% options are: Agriprog, WeatherProg-GCI, AgriSupport, AgriMetSupport, 
 
 \journal{Computers and Electronics in Agriculture}
 
@@ -95,21 +194,23 @@
 \author[deeit]{Massimo Nicolazzo}
 \address[deeit]{Department of Electrical Engineering and Information Technology, University of Naples Federico II, Via Claudio 21, 80125 Naples, NA, Italy}
 
-\date{February 2019}
+\date{April 2019}
 
 \begin{abstract}
-[COPIED] The current agrometereological monitoring of the Campania Region is both inadequate for its users and insufficient to support the simulation of pest risk models.
-This work describes a cyber-physical system which has been designed to overcome these limitations, with the objective of
-	\begin{enumerate*}
-		\item automate all the tasks involved in climatic data management, including also the intervention of the human expert when appropriate,
-		\item develop dependable pest risk models and provide the input data they need, and 
-		\item provide real-time agrometereological data presentation.
-	\end{enumerate*}
-	The system is built around an automatic climatic data management engine called WeatherProg, which manages data collection, quality control, data reconstruction, and digital maps production.
-	A proper climatic database has been developed to support the operations of WeatherProg, as well as a Web application for real-time publication of data handled by the software.
-	Pest risk models, fed by point measurements and the digital maps produced by WeatherProg, are going to be prototyped.
-	Furthermore, a new small measurement station has been prototyped, with the aim of being low-cost and easy to relocate, in order to support the characterisation and models parameterisation for different areas.
-	This paper illustrates the current status of the system and discusses future directions.
+% Follow the following to write the abstract: https://www.scopus.com/record/display.uri?eid=2-s2.0-85020284965&origin=resultslist&sort=cp-f&src=s&st1=webgis&st2=dss&nlo=&nlr=&nls=&sid=05d242451f19678a21dc297f4479242b&sot=q&sdt=cl&cluster=scosubtype%2c%22ar%22%2ct&sl=30&s=TITLE-ABS-KEY-AUTH%28webgis+dss%29&relpos=3&citeCnt=4&searchTerm=
+
+%[COPIED] The current agrometereological monitoring of the Campania Region is both inadequate for its users and insufficient to support the simulation of pest risk models.
+%This work describes a cyber-physical system which has been designed to overcome these limitations, with the objective of
+%	\begin{enumerate*}
+%		\item automate all the tasks involved in climatic data management, including also the intervention of the human expert when appropriate,
+%		\item develop dependable pest risk models and provide the input data they need, and 
+%		\item provide real-time agrometereological data presentation.
+%	\end{enumerate*}
+%	The system is built around an automatic climatic data management engine called WeatherProg, which manages data collection, quality control, data reconstruction, and digital maps production.
+%	A proper climatic database has been developed to support the operations of WeatherProg, as well as a Web application for real-time publication of data handled by the software.
+%	Pest risk models, fed by point measurements and the digital maps produced by WeatherProg, are going to be prototyped.
+%	Furthermore, a new small measurement station has been prototyped, with the aim of being low-cost and easy to relocate, in order to support the characterisation and models parameterisation for different areas.
+%	This paper illustrates the current status of the system and discusses future directions.
 \end{abstract}
 
 \begin{keyword}
@@ -124,11 +225,12 @@ This work describes a cyber-physical system which has been designed to overcome 
 
 \end{frontmatter}
 
+\tableofcontents
 \linenumbers
 
 %% main text
 %\section{}\label{}
-\section{Introduction}
+\section{Introduction}[Giuliano][done]
 
 %journal: Computers and Electronics in Agriculture
 % https://www.journals.elsevier.com/computers-and-electronics-in-agriculture
@@ -164,43 +266,55 @@ Weather and climate are the most important dynamic components of the ECZ determi
 Agricultural meteorology is concerned with the monitoring of weather and the characterisation of the meteorological, hydrological and pedological factors that have a direct effect on agriculture and the production of crop and livestocks.
 % http://www.agriinfo.in/default.aspx?page=topic&superid=1&topicid=377
 Agricultural meteorology is deemed important considering the large amount of ground stations available worldwide to monitor the behaviour of weather elements, notwithstanding, for instance, the huge amounts of air-borne proxy products coming from massive satellite monitoring.
-Indeed, it helps (search one or more REFs for each item): 
+Indeed, it helps: % \note{(search one or more REFs for each item)}: 
     \begin{enumerate*}
-        \item understanding the realisation of several crop parameters such as the growing season and the harvesting time;
+        \item understanding the realisation of several crop parameters such as the growing season and the harvesting time;  %\citep[e.g.]{Hoogenboom:agrometeo-swat:2000};
         \item managing crops by means of various farm operations such as fertilisers application and irrigation scheduling;
         \item assessing the suitability of specific crops in space (by means of agroclimatic zoning) and time (e.g. according to climate change);
         \item crop and livestock monitoring and modelling;
-        \item understanding the spatial distribution of soils types and properties since climate is one of the soil forming factors recognized in the CLORPT (REF: Jenny) or SCORPAN (REF: MacBratney) models;
+        \item understanding the spatial distribution of soils types and properties since climate is one of the soil forming factors recognized in the CLORPT \citep{jenny:clorpt:1941} and SCORPAN \citep{McBratney:scorpan:2003} models;
         \item forecasting plant pests and diseases.
     \end{enumerate*}
 
-There is an increasing demand for the production of digital climatic data of good quality within the earth critical zone both 
+There is an increasing demand for the production, in digital format, of weather and climatic data of good quality within the earth critical zone both 
     for practical applications (e.g. the need to know climatic patterns in a farm to improve the management),
     and
-    for research and development, in particular to simulate the soil-plant-atmosphere system and the risk of pests.
+    for research and development, in particular to simulate the soil-plant-atmosphere system \citep{Hoogenboom:agrometeo-swat:2000,Jones:swat:2003,Langella:rainann:2010,Seneviratne:swat:2010} and the risk of pests \citep{Orlandini:plasmopara:2008,Rossi:vitenet:2014,Terribile:dssvitis:2017}.
 The demand is particularly burdensome considering the requirement to handle climatic data both at finer temporal scale and in a continuous spatial domain.
 It means that daily (e.g. in the soil hydrological modelling) or even hourly records (e.g. in the phytopathologic risk modelling) measured at point gauges sparsely located in a territory must be transformed in three dimensional climatic data cubes (Longitude, Latitude, Time) by means of statistically sound geospatial procedures.
 % (there is a gap between the major of scientific modelling approaches that requires digital climate maps and the gauged measurements).
 There exist few approaches implementing and deploying automatic spatial inference engines of this kind based on point climatic data at the daily or even at the hourly time step.
-One example working in USA with daily data, is given by the expert-based model called PRISM developed by  \cite{Daly08_PRISM_USA}. (\ldots search for other REFs.)
+One example working in USA using already checked daily data, is given by the expert-based model called PRISM developed by  \cite{Daly08_PRISM_USA}. %\note{(search for other REFs? may be sufficient!)}
 
 % ==== Aim ====
 %Support systems to agrometeorological practices and services comprise data (so quantification), research, training/education/extension and policy environments. Especially in industrialized countries mathematical models are increasingly used in operational agricultural meteorology, in conjunction with Geographic Information Systems (GISs) to provide inputs to Decision Support Systems (DSSs).
-[ENHANCE]Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
+Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
+Examples of WB-SDSS can be found 
+for heavy metal pollution management in soils \citep{Wang:wbsdss:2005}, 
+for livestock manure management \citep{Acutis:wbsdss:2014}, 
+for locust prevention and control \citep{Yao:wbsdss:2017}, 
+for optimized crop irrigation \citep{Giusti:wbsdss:2015}, 
+for land management and soil conservation \citep{Terribile:soilconsweb:2015}, 
+and so forth.
+There exist a huge production of DSS tools on quite every issue related to the agricultural and forestry systems.
+%\note{what is missing? a GCI on agrometerological data to facilitate the assembly of tools to support decision process in issues related to agriculture and forestry.  }
+\note{[ENHANCE]} To authors' knowledge, there is a complete gap in literature about Geospatial Cyber-Infrastructure (GCI) fully dedicated to agriculture meteorology, both to implement a stand-alone agrometeorological platform and to facilitate the assembly of tools to support the decision process in issues related to agriculture and forestry. \note{[we might add a note including the SCOPUS search results]}
+% To authors' knowledge there is any work in literature dealing with GCI
+% SCOPUS = "geospatial cyber infrastructure agrometeorology" ==> 0 results
+% SCOPUS = "cyber infrastructure agrometeorology" ==> 0 results
+% SCOPUS = "cyberinfrastructure meteorology" ==> 13 results, but not pertinent
+% SCOPUS = "geospatial agrometeorology decision support" ==> 0 results
 
-\ldots there is a huge production of DSS on quite every aspect of the agricultural or forestry systems \ldots
-
-In this paper a strongly modular Geospatial Cyber-Infrastructure (GCI), called MyNameIsBeautiful, is proposed as a general technological framework being a WB-SDSS, that can be fully tailored to the specific needs of an existent agrometeorological network.
+In this paper a strongly modular GCI, called \gci
+is proposed as a general technological framework being a WB-SDSS, that can be fully tailored to the specific needs of an existent agrometeorological network (e.g. those managed by local government agencies).
 The proposed GCI is based on a software component, namely WeatherProg \citep{langella:weatherprog2014,langella:weatherprog2016}, which represents the main engine of the information technology system and has the potential of being the basic engine of whatever geospatial-based service in agriculture, in which both the weather and the climatic information is of paramount importance.
-WeatherProg has the key advantage of implementing all the tasks from gathering the raw measurements coming from the agrometeorological sensors till the delivery of digital climatic maps at both daily and hourly time steps.
+WeatherProg has the key advantage of implementing all the tasks from gathering the raw measurements coming from the agrometeorological sensors till the delivery of digital climatic maps at different time steps (e.g. hourly, daily, and so forth).
 
-Together with the presentation of the general template WB-SDSS, the results of applying the MyNameIsBeautiful GCI to a specific case study, that is in Campania Region, is shown with the specific focus of producing data of good quality.
+Together with the presentation of the general template WB-SDSS, the results of applying the \gci GCI to a specific case study, that is in Campania Region (South of italy), is shown with the specific focus of producing data of good quality.
 The task consists in tuning a fully automatic or assisted procedure to quality check the measurements at the gauged points.
-This is of particular relevance given on one hand some limitations, such as the eco-environmental complexity of the study area, the scarcity of stations and the lack of long term time series for any station, and on the other hand the urgent need for monitoring and sharing agrometeorological data (highlight the important step forward thanks to our GCI) and the urgent need for a system to assist the production of bulletins to help mitigate the effects of alien or autochthonous pests.
+This is of particular relevance due to limitations and constraints (showed in \cref{weatherprog:casestudy}) of the Campania Region agrometeorological network.
 
-[ENHANCE!] The need for tools that can enhance the climatic data distribution, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological publication to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.
-
-\section{The cyber-physical infrastructure MyNameIsBeautiful}
+\section{The cyber-physical infrastructure \gci}[Giuliano][wip]
 %Central to the design of an effective automated data-processing system is the database. The telecommunications subsystem database must hold:
 %(a) Bulletins of incoming messages;
 %(b) Locally generated observations;
@@ -213,51 +327,66 @@ This is of particular relevance given on one hand some limitations, such as the 
 %If possible, the database residing in each computer should be controlled by the same database
 %management system (DBMS), which should be relatively simple so as to minimize computing overheads and facil- itate the speed of response of the overall data-processing system.
 
-\begin{itemize}
-    \item explain the micro-virtualization with docker ecosystem according to recent cutting-edge IT tendency
-    \item every piece of the system is a dedicated docker container, such as the the (S)FTP service receiving the hourly bullettins from the agency in charge of the permanent stations
-\end{itemize}
+\gci is designed to be a comprehensive framework for agrometereological monitoring and data management.
+\note{[ENHANCE]} It can be effectively used for a wide range of purposes, from simple agrometeorogical monitoring to digital climatic maps production and agricultual and forestry modeling and application, including predictive pest modeling.
+Clearly, different real-world applications have different requirements, which can be all accomodated by \gci thanks to its strongly modular architecture.
+Components can be added or removed to a specific instance of \gci effortlessly without affecting other parts of the system, as well as modules of the core engine, WeatherProg, which can be selectively enabled or disabled.
+This way, end users (e.g. local government agencies) actually derive their own tailored instance from the general model of \gci.
 
-[COPIED]The architecture of the proposed cyber-physical infrastructure, MyNameIsBeautiful, is illustrated in \cref{cyberPhysicalSystemFig}.
-The sensor networks on the territory provide input data to the system.
-Raw data are collected by the CAR, which sends them to the WeatherProg engine on hourly basis with a lag of one hour from the real time measurement.
-However, the format of the received data is not suitable for subsequent climatic operations, hence the first task of the WeatherProg software is to decode the received data, and store it in a WMO-compliant climatic data base, developed using the PostgreSQL relational DBMS \cite{postgres}.
+The high-level complete architecture is illustrated in \cref{cyberPhysicalSystemFig}.
+At the topmost level, \gci is constituted by central components, responsible for storage and processing of data (e.g. WeatherProg), and peripheral components, in charge of collecting data from the environment (i.e. sensors in the network) or those delivering web services (e.g. agrometeorological data consulting).
 
 \begin{figure}
 	\centering
 	\includegraphics[scale=.5]{figures/fullSystem_GCI.pdf}
-	\caption{High level architecture of the MyNameIsBeautiful cyber-physical system}
+	\caption{High level architecture of the \gci cyber-physical system}
 	\label{cyberPhysicalSystemFig}
 \end{figure}
 
-[COPIED]WeatherProg then performs a range of quality controls to spot and flag anomalous measurements, and reconstructs both wrong and missing data.This step purposedly involves some manual intervention from an human expert, in order to finally decide from the wrongness of anomalous data. In fact, apart from clear-cut correct and clear-cut wrong measurements, there is a range of suspicious cases which may or may not be correct. In such cases, rather than trying to make a guess, the measurement is flagged as suspicious and left to the human expertise for the ultimate decision. For the case study described in this paper, the human experts are the regional officers of the CAR. A Web-based dashboard allows the expert to review the output of the quality control and make the ultimate decisions. Moreover, the dashboard allows also to configure some of the parameters of the models embedded in WeatherProg.
+Peripheral components are the actual monitoring networks.
+In fact, \gci is capable of handling and integrating data coming from multiple heterogeneous networks of stations, possibly under the responsibility of different agencies working in the same territory.
+Each network can include different kinds of station, and each network can submit data to \gci in different formats, since the decoding module of WeatherProg can be configured to accomodate such differences.
+The opportunity to integrate networks is of paramount importance to systematically optimise the joint management of public and/or private monitoring infrastructures with significant beneficial impact on costs savings and services enhancements.
+%and reciprocal impact both on the different agencies sharing their data and on farmers and end users who can enjoy more accurate data and less uncertain services.
 
-[COPIED]The following step of the climate data management chain performed by WeatherProg is the production of digital climatic maps of relevant variables. According to the needs of the pest risk models which will consume them, digital maps of both fundamental variables like temperature or rainfall, and derived variables like evapotranspiration, can be produced by WeatherProg.
+\gci can also be employed in contexts where there is insufficient agroclimatic coverage of the environment.
+In fact, it comes with its own monitoring network, characterised by low-cost stations which are particularly suitable for temporary deployments and for tuning the parameters of the various models included in the GCI.  \note{[FULL PAPER: Martino, Langella, Nicolazzo 2019]}.
+It must be stressed that the low-cost monitoring network is entirely optional, being a component like the others that can be simply removed if there is already excellent coverage of the territory, therefore not preventing the use of \gci in such scenarios. \note{[add installation of low cost station by farmers]}
 
-[COPIED]Digital maps are stored in a raster database called \emph{rasdaman} (\emph{Raster Data Manager}) \cite{baumann:rasdaman}, which makes  available the datacube representation. A \emph{datacube} is a representation of a digital map with more than two dimensions, where the additional dimensions can encode additional information. The simplest case is a three-dimensional map where the x and y dimensions represent easting and northing as usual, while the z dimension represents the time of the digital map. This datacube can actually be regarded as an "array of digital maps", where each element of the array is a digital map at a specific point in time. Example of datacubes are shown in \cref{datacubeExampleFig}.
+The main central components are the WeatherProg core engine, and the data bases. Two main data bases are employed by \gci.
+The first is a relational data base used to store the climatic data of the station in a WMO-compliant fashion.
+The latter  is a raster data base capable of handling the digital climatic maps which can be produced as tiles by the WeatherProg engine.
+An open source array database is used to stitch together the 2D maps or tiles calculated over time on the different agroclimatic variables to produce multi-dimensional arrays or data cubes, which are  characterised by three (X, Y, Time) or four (X, Y, Time, Variable) dimensions.
+Computations (trimming and slicing) on these data cubes are embarrassingly parallel, and scale up according to the number of available CPU cores.
+%The rasdaman DBMS \citep{baumann:rasdaman} has been chosen due to its representation of spatial data as datacubes, i.e. digital maps with more than two dimensions, where the third dimension is used to represent time.
 
-[COPIED]Once datacubes have been created by WeatherProg and inserted into rasdaman, pest risk models can be run, representing the last link of the chain. Thanks to the datacubes, a mechanistic pest model can be run on whatever point within the study area. Moreover, a pest risk map may also be produced by running the model over an area of interest. \Cref{datacubeOperationsFig} graphically explains how operations on datacubes work.
+\note{Are pest risk models included into WeatherProg now? I think we should avoid pest models here, only give a hint.}
 
-\subsection{The network of stations and uploading messages [DELETE?]}
-\subsection{Monitoring with Low-Cost Station (Massimo)}
-General description of the low-cost station.
-It is a monitoring net using low-cost and open-source components.
-\begin{itemize}
-    \item Hardware components
-    \begin{itemize}
-        \item Base board
-        \item Sensors
-        \item Network chip
-    \end{itemize}
-    \item Firmware logic
-\end{itemize}
+\note{Should we mention deep learning and other post-processing engines? There is already a lot of stuff, maybe we can reduce the picture and accordingly the text, but do this in the end.}
 
-\subsection{The (bulletins of) incoming messages}\label{decode}
-(low-cost + permanent) (the infrastructural DB + climatic DB)\\
+Finally, \gci includes various end-user interfaces to provide a number of different services. A data consulting web application publishes the agroclimatic data managed by the system to the general public, whereas more tailored services are provided through dedicated interfaces. A web-based interface is also available for officers in charge of the system to tune the operational parameters of WeatherProg's models.
 
-\paragraph{Data model}\textcolor{Red}{Version 3.0, assuming that the merging of the climatic data has been carried out} The data model of the data base has been studied to help maintaining data consistency. Its design allows to avoid a number of unconsistencies thanks to the relational checks performed by the DBMS. 
+\subsection{Monitoring with Low-Cost Station}[Raffaele][todo]
+This station is made of low-cost and open-source components, \ldots IoT, \dots \note{[3-4 lines max]}
 
-The data model is illustrated in  \cref{ERD}, which illustrate the logic-level \emph{Entity-Relationship Diagram} (ERD), ready to be implemented in SQL automatically by means of the \emph{pgModeler} \citep{pgmodeler} open source software. For the reader unfamiliar with data modeling, the boxes representing tables of the database, with the fields listed within each box. The diamond-marked links represent a reference from a table to another subject to \emph{referential integrity constraints}, which are validity checks automatically performed by the DBMS. Further details of the model are described in the caption of \cref{ERD}.
+The station can be employed to integrate and reinforce existing networks in order to improve the coverage of the territory, with a limited expense.
+They can be easily moved from a location to another, so as to be concentrated in particular areas for the time needed to characterise it, and then moved to a different area.
+This is particularly convenient to carry out joint monitoring (e.g. a  joint agroclimatic and pest monitoring) to tune specific models (e.g. a model simulating pest risks).
+This station can be used also by farmers located in the same territory where \gci is up, to locally monitor agroclimatic variables and get more accurate support (e.g. using models' predictions).
+
+\subsection{Data base}[Giuliano and after Raffaele][wip]
+\note{(Give a higher-level description, including the flags, consider a Table, add a description and action taken column.)}\\
+\note{Here we have only the relational database, but we have mentioned earlier the raster data base. Should we mention that the latter has not yet developed or do we have something? (GL:) We cited the array data base before, in this paper we'll focus on quality check, not mapping yet (so no extended raster db description at now)}
+
+To implement the relational climatic data base, the PostgreSQL Data Base Management System (DBMS) \citep{postgres:postgresql} has been chosen. PostgreSQL is the fastest relational DBMS, and is open-source; but the most relevant reason for its choice is its comprehensive support of spatial data. PostgreSQL features natively a number of geometric types and operators over them but, most importantly, it comes with an optional, open-source, extension named PostGIS  \citep{postgis:postgis} for full support of geographic data. This extension is a cornerstone in our plan for future improvement of the automated system.
+
+\paragraph{Data model}
+% TODO Update the data model if needed
+\note{Version 3.0, assuming that the merging of the climatic data has been carried out. Update accordingly otherwise}
+
+The data model of the data base has been studied to help maintaining data consistency. Its design allows to avoid a number of unconsistencies thanks to the relational checks performed by the DBMS. 
+
+The data model is illustrated in  \cref{ERD}, which illustrate the logic-level \emph{Entity-Relationship Diagram} (ERD), ready to be implemented in SQL automatically by means of the \emph{pgModeler} \citep{silva:pgmodeler} open source software. For the reader unfamiliar with data modeling, the boxes representing tables of the database, with the fields listed within each box. The diamond-marked links represent a reference from a table to another subject to \emph{referential integrity constraints}, which are validity checks automatically performed by the DBMS. Further details of the model are described in the caption of \cref{ERD}.
 
 Each measurement site is represented by an entry of the \texttt{Station} table. A station is uniquely identified by its coordinates. The toponym field is indispensable since it is employed, along with the station's elevation, by the web application to label the station itself. The date when the station was added to the network is recorded, as well as the withdrawal date for these stations which have been dismantled. The Network field provides support for the integration of different monitoring network, which is discussed in all its aspects in \cref{Integration}.
 
@@ -271,30 +400,39 @@ The \texttt{Equipment} table lists all the climatic variables each station can m
 
 \begin{figure}
 	\includegraphics[scale=.26]{ERD}
-	\caption{The data model for the climatic database. Each box represents a table. Each row in the box represents a field of the table. The yellow key denotes fields which form the Primary Key of the table. The blue circle denotes field which cannot be left empty by any record. Diamond-marked links means relationship within table subject to referential integrity constraints. Fields which are part of the Primary Key and subject to referential integrity constraints are written in green.}
+	\caption{ \note{(move to tech full paper)} The data model for the climatic database. Each box represents a table. Each row in the box represents a field of the table. The yellow key denotes fields which form the Primary Key of the table. The blue circle denotes field which cannot be left empty by any record. Diamond-marked links means relationship within table subject to referential integrity constraints. Fields which are part of the Primary Key and subject to referential integrity constraints are written in green.\note{[enhance figure (do it again in powerpoint)]}}
 	\label{ERD}
 \end{figure}
 
-\paragraph{IT-decode} To provide support for data storage, the PostgreSQL Data Base Management System (DBMS) \citep{postgres} has been chosen. PostgreSQL is the fastest relational DBMS, and is open-source; but the most relevant reason for its choice is its comprehensive support of spatial data. PostgreSQL features natively a number of geometric types and operators over them but, most importantly, it comes with an optional, open-source, extension named PostGIS for full support of geographic data. This extension is a cornerstone in our plan for future improvement of the automated system.
-
+\paragraph{Interface to WeatherProg}
 Theoretically, Weatherprog could directly access the PostgreSQL database, by embedding SQL queries into the code of its core modules. This approach would strictly couple Weatherprog with the database structure, with the considerable downside of requiring to modify each and every relevant query in the code when a change of the database structure is applied. To enhance modifiability, we chose to have a dedicated persistence module instead. This way, Weatherprog's core modules no longer need to know, and therefore depend upon, every detail of the database architecture, instead it makes meaningful calls to the functions made available by the persistence module. Technically speaking, the persistence module, which is developed taking advantage of the object-oriented features of the Matlab\textsuperscript{\circledR} language, effectively provides an \emph{Application Programming Interface} (API) for using by the other modules of Weatherprog. When a structural change is applied to the database, the modification to the Weatherprog code is concentrated and limited to the persistence module, without affecting the other modules.
 
-\paragraph{IT-qcheck}\label{controlFlags}
-The data storage provides support to the quality control procedures by storing, for each measurement record, one flag for each control module, and a flag for the overall result of the quality control.
+\paragraph{Control flags}\label{controlFlags} % TODO Polish control flags
+Each of the flags for the quality control modules can assume one of the following values \note{[provided a Table]}:
+\begin{table}[]
+    \begin{scriptsize}
+    \centering
+    \begin{tabular}{r|p{10cm}}
+    \multicolumn{2}{c}{Blablabla} \\
+    \hline
+	UNPROCESSED & The measurement has not been subject to the quality control yet\\
+	DISABLED & The quality control module \note{(or the kind of quality check?)} was not enabled for this measurement\\
+	UNCHECKED & Quality control was performed on this measurement, but this specific quality control \note{kind} has not been applied yet\\
+	CORRECT & This measurement appears to be correct according to this quality control \note{kind} \\
+	DUBIOUS & This measurement is suspicious, according to this quality control \note{kind}, which cannot decide either for correctness or for wrongness. A knowledge-based human checking is required \\
+	UNDECIDED & The measurement has been subject to some quality control \note{kind}, but the procedures have not ended yet \note{GL: not clear to me!}\\
+	WRONG & This measurement appears to be wrong according to this quality control \note{kind} \\
+	%MISSING & This measurement is not present in the database \note{remove}\\
+	%INVERTED & This measurement of a maximum (minimum) value of a climatic variable appears to be inverted with its respective minimum {maximum} \note{remove}\\
+    \end{tabular}
+    \caption{Flags used in the quality check module.}
+    \label{tab:flagsSummary}
+    \end{scriptsize}
+\end{table}
 
-Each of the flags for the quality control modules can assume one of the following values:
-\begin{description}
-	\item[UNPROCESSED] The measurement has not been subject to the quality control. \textcolor{Red}{This flag no longer makes sense with the addition of the overall quality control flag, and should not be mentioned if not removed altogether}
-	\item[DISABLED] This quality control module was not enabled for this measurement
-	\item[UNCHECKED] Quality control was performed on this measurement, but this specific quality control module has not been applied yet.
-	\item[CORRECT] This measurement appears to be correct according to this quality control module.
-	\item[DUBIOUS] This measurement is suspicious, according to this quality control module, which cannot decide either for correctness or for wrongness.
-	\item[WRONG] This measurement appears to be wrong according to this quality control module.
-	\item[MISSING] This measurement is not present in the database \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
-	\item[INVERTED] This measurement of a maximum (minimum) value of a climatic variable appears to be inverted with its respective minimum {maximum} \textcolor{Red}{This flag no longer makes sense with the current version of the database, and should not be mentioned if not removed altogether}
-\end{description}
+\note{add a table to map flags with kinds of quality checks in order to get the overall flags, reported in the list below.}
 
-On the other hand, for the overall quality control flag the following values are defined:
+On the other hand, for the overall quality control flag the following values are defined: 
 \begin{description}
 	\item[UNPROCESSED] The measurement has not been subject to the quality control.
 	\item[UNDECIDED] The measurement has been subject to some quality control modules, but the procedures have not ended yet.
@@ -303,47 +441,47 @@ On the other hand, for the overall quality control flag the following values are
 	\item[CORRECT] The measurement appears to be correct, according to Weatherprog.
 \end{description} 
 
-As said earlier in \cref{decode}, there are two periodic runs of Weatherprog in charge of the decoding task. These runs are also useful to perform quality control checks on different windows of data. \textcolor{red}{Details of which controls are executed when, to be provided}
-
-\subsection{WeatherProg (general overview)}
-[COPIED](start linking to soilconsweb but underline today implementation of WeatherProg to demonstrate its usefulness, powerfulness and readiness-of-use)\\
-WeatherProg is a computer program that was developed as the baseline asynchronous engine for the raw weather records handling within the SOILCONS-WEB project (LIFE08 ENV/IT/000408, cite the papers by Langella, 2014 and Terribile et al., 2015)... 
-It was developed because... 
-This project ended in dec-2014, but (go to next sentence, explaining nowadays usage of WeatherProg).\\
-WeatherProg is now used as a geospatial weather engine in a web-based DSS for on-the-fly and real-time (the time interval only depends upon the station data logger query frequence) consulting of agrometeorological variables... allowing temporal/spatial stats queries and embedding CUDA codes (on the client-side GUI) for fast calculation. Then also WeatherProg itself has major CUDA developments in order to speedup crucial and time-consuming calculations such that of making spatial interpolation at any pixel of the study area)\\
-
-
+\subsection{WeatherProg (general overview)}[Giuliano][done]
 WeatherProg \citep{langella:weatherprog2014} is a computer program to automatically manage agrometeorological data.
-The first implementation was carried out as the baseline asynchronous engine for the raw weather records handling in the SOILCONS-WEB project (LIFE08 ENV/IT/000408).
-The program was progressively modified and updated in order to be accommodate the requirements of both (i) Regional Administrative Bodies in charge of data management and publication and bulletins production for pest management, and (ii) the setting of a service in the context of Agriculture 4.0 and advanced IoT.
+The first implementation was carried out as the baseline asynchronous engine for the raw weather records handling in the (LIFE08 ENV/IT/000408) SOILCONS-WEB project.
+It was developed because the main input requirements of the different modelling chains embedded in the project DSS \citep{Terribile:soilconsweb:2015} were the availability of both (i) complete and homogeneous time series and (ii) spatially exhaustive digital maps of the key agrometeorological variables (e.g. temperature and precipitation).
 
-Raw reports from a climatological network can be ingested as input and a different set of operations are performed ranging from the data checking to the delivery of gridded weather parameters.
+After the end of the project, the program has been progressively modified and updated in order to accommodate the requirements of both local government agencies (such as Italian Regions) and farmers, also thanks to an innovative cyber-physical infrastructure which it is embedded in (\cref{cyberPhysicalSystemFig}).
+Indeed, WeatherProg can facilitate the work by a local administrative body which is in charge of managing and publishing agrometeorological data, and of promoting measures for low pesticide-input pest management \note{(fix: Directive 2009/128/EC)\citep{eu:dir128:2009}}, for instance by producing bulletins based on bioclimatic indicators or on simulation models.
+WeatherProg can facilitate the work by a farmer too, since it supports for instance the implementation of an integrated pest management tool \citep{Terribile:dssvitis:2017} by configuring services in the context of Agriculture 4.0 and advanced IoT as depicted in \cref{cyberPhysicalSystemFig}.
 
-Temperature, rainfall, relative humidity, solar radiation, atmospheric pressure and wind speed are the agrometeorological variables most commonly handled by the program using different temporal scales calculated by the aggregation of the most fundamental units of measurements, i.e. the 10-minute  measurements which are aggregated to build hourly and daily data.
+Nowadays, WeatherProg is intended for a geospatial engine to be embedded in a web-based DSS dedicated to the on-the-fly and real-time consulting of agrometeorological and derived variables in the form of time series or maps.
+Raw reports from a climatological network can be ingested and a different set of operations are performed ranging from the data checking to the delivery of gridded agrometerological variables.
+Temperature, rainfall, relative humidity, solar radiation, atmospheric pressure and wind speed are the most commonly handled variables by the program at different time scales.
 
-WeatherProg starts automatically every hour when a new report is available, carrying out the following main operations:
+WeatherProg starts automatically at predefined time intervals when a new report from the monitoring network is available (which depends upon the station data logger query frequency), and carries out the following main operations:
 \begin{enumerate}
-    \item The real-time report with measurements from all sensors and stations belonging to a monitoring network arrives to WeatherProg via a secure file transfer protocol. [data retrieval]
+    \item Complete data retrieval. The real-time report with measurements from all sensors and stations belonging to a monitoring network arrives to WeatherProg via a secure file transfer protocol.
     
-    \item After the report is decoded according to time scale and sensors, data are ingested in PostgreSQL. [data decoding]
+    \item Data decoding and ingestion. After the report is decoded according to time scale and sensors, data are ingested in PostgreSQL.
 
-    \item Quality check of time series to automatically demarcate good measurements from wrong and missing values, which are conveniently flagged for the subsequent infilling procedure.
-    An anomalous datum is detected thanks to a multilevel technology based on interlinked and different kinds of quality checks such as logical, climatologic, spatial, temporal and persistency checks. Certification of abnormality is semi-automatic and is the result of the combination of the data-driven WeatherProg checking procedure and the knowledge-based human checking in order to finally assign the definitive flag (such as GOOD, WRONG and so on).
+    \item Quality check and flagging of data. Quality checks of time series are performed to automatically demarcate good measurements from wrong and missing values, which are conveniently flagged for the subsequent infilling procedure.
+    An anomalous datum is detected thanks to a multilevel technology based on interlinked and different kinds of quality checks such as logical, climatologic, spatial, temporal and persistency checks. Certification of abnormality is semi-automatic and is the result of the combination of the data-driven WeatherProg checking procedure and the knowledge-based human checking in order to finally assign the definitive flag (such as \note{CORRECT, WRONG} and so on, \note{see Table ??}).
     
-    \item Anomalies and missing data are all flagged to be interpolated by means of an automatic linear regression procedure.
-    Different methods of interpolations are available such as a deterministic method (based on moving average with growing kernel) or a statistical method (a stepwise multilinear regression using other stations after an optimization step). [data infilling]
+    \item Data infilling. Anomalies and missing data are all flagged to be %interpolated by means of an automatic linear regression procedure.
+    infilled.
+    Different methods are available such as a deterministic approach based on moving average with a growing kernel, or a statistical method approach using a stepwise multilinear regression using other stations after an iterative optimization step to properly select the time series length and the regression covariates.
     
-    \item The spatial interpolation of point data is performed considering the scale of the application that is requesting WeatherProg to produce the digital maps.
-    Three-dimensional climatic data cubes (easting, northing and time) are produced which allow queries along any of the dimension (such as slicing, dicing and trimming). The methods available for spatial interpolation are the IDW (parameterized inverse distance weithed), different flavors of kriging (ordinary, regressive), and a PRISM-like approach. [spatial interpolation].
+    \item Time scale aggregation. Variables are aggregated using different temporal scales calculated by a statistic (minimunm, maximum, average, most frequent, and so on) of the most fundamental units of measurements (i.e. the 10-minute  measurements).
+    
+    \item Spatial interpolation and data cubes. The spatial interpolation of point data is performed considering the scale of the application that is requesting WeatherProg to produce the digital maps.
+    Three-dimensional climatic data cubes (easting, northing and time) are produced which allow queries along any of the dimension (such as slicing, dicing and trimming). The methods available for spatial interpolation are the IDW (parameterized inverse distance weithed), different flavors of kriging (ordinary, regressive), and a PRISM-like approach \citep{Daly08_PRISM_USA}.
 \end{enumerate}
 
-\subsection{The dashboards}
+\subsection{The dashboards}[Raffaele][todo]
+\note{May well be merged into the general description, unless we want to be very detailed in the description of what we have}\\
 agrometeo data consulting (hopefully version 3.0 with QCheck!)\\
 agrometeo network manager (we have something\ldots)\\
 pest service consulting (we have the demo Plasmopara!!!)\\
 
-\section{Case study: the Campania Region}
-\subsection{Study area}
+\section{Case study: \gci at work in Campania Region}[Giuliano][todo]
+
+\subsection{Study area}[Giuliano][wip]
 [COPIED] Located in southern Italy between \ang{13;45;}E, \ang{15;49;}E, \ang{39;59;}N and \ang{41;31;}N, Campania is the third most populated region of the country, but due to its extension of about \SI{13600}{\metre\squared}, it is the most densely populated region of Italy.
 Its inland is occupied by the Apennine Mountains, oriented roughly NW-SE, whereas the Sele and Campana plains border the coast.
 The Sele plain is named after the river which traverse it, while the Campana plan is traversed by the Volturno river.
@@ -364,30 +502,72 @@ Consequently, the elevation ranges from \SIrange{0}{1904}{\metre} above mean sea
     %Its landscapes also include marine landforms.
     %This area is characterized by a very sparse rain gauge network, and was selected specifically to evaluate the performance of the bootstrapping technique on a more limited dataset.
 
-\subsection{Official agrometereological network (RAR)}\label{RARStructure}
-The agrometereological monitoring is in charge of the Agrometereological Regional Centre (CAR) under the Department for Agriculture of the Campania Region. The station network run by the CAR includes, at the time of this writing, 34 stations spanning an elevation range from \SIrange{11}{794}{\metre} a.m.s.l.
+\subsection{Official agrometereological network (RAR)\label{RARStructure}}[Raffaele][done]
 
-Not only the number of available stations is too limited to properly capture the aforementioned complexity of the regional environment, but also the equipment of these stations is highly variable.
-All the stations measure air temperature, rainfall and air humidity, but for 10 stations these are the only climatic parameters measured.
-Air pressure is measured by only 9 stations.
-All the 11 fundamental climatic variables are measured by at least one station in the network, but no one station is equipped to measure all the climatic variables.
+The WMO-compliant agrometereological monitoring network of the Campania Region comprises, at the time of this writing, only 34 stations, and this number is already insufficient to properly capture the complexity of the environment of the Campania Region. To make things worse, the stations vary in their instrumentation, hence there is not any station which is capable of measuring all the 11 fundamental climatic variables, although each climatic parameter is measured by at least one station. The bare minimum instrumentation includes sensors for air temperature, rainfall and air humidity, and 10 stations of the network measure only these three parameters. The least monitored variable is air pressure, with only 9 stations currently measuring it. \cref{tab:rarSummary} lists some statistics about the station network, while \cref{fig:rarLocations} illustrates the deployment of the stations over the territory of the Campania region.
 
-\begin{itemize}
-    \item The current net inadequately covers the complex territory of the Campania Region, in terms the representativeness over both elevation and geospatial domain.
-    \item the current web application cannot adequately share the measurements according to the requirements of potential users (DELETE:coming form different "productivity" sectors, BETTER: stakeholders), such as agriculture, professionals in agronomy supporting the farmers, livestock farmers, etc.
-\end{itemize}
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c|c}
+        & \textbf{Active stations} & \textbf{All available data} \\ 
+        \hline
+        Number of stations & 34 & 38 \\
+        \hline
+        \multicolumn{3}{c}{General information} \\
+        \hline
+        Minimum elevation & \multicolumn{2}{c}{\SI{11}{\metre} a.m.s.l.}\\
+        Maximum elevation & \multicolumn{2}{c}{\SI{794}{\metre} a.m.s.l.} \\
+        Measurements time scale & \multicolumn{2}{c}{\SI{10}{\minute}} \\
+        \hline
+        \multicolumn{3}{c}{Lenght of the time series available in \gci} \\
+        \hline
+        1 year & 9 & 10 \\
+        2 years & 23 & 26 \\
+        3 years & 2 & 2 \\
+        \hline
+        \multicolumn{3}{c}{Stations per variable} \\
+        \hline
+        Air temperature & 34 & 38 \\
+        Rainfall & 34 & 38\\
+        Air humidity & 34 & 38\\
+        Wind direction & 24 & 25\\
+        Wind speed & 25 & 26\\
+        Wind gusts & 25 & 26\\
+        Air pressure & 9 & 10\\
+        Solar radiation & 13 & 14\\
+        Soil temperature & 13 & 13\\
+        Soil humidity & 13 & 13\\
+        Leaf wetness & 23 & 24 
+    \end{tabular}
+    \caption{Detail of the agrometereological network in Campania}
+    \label{tab:rarSummary}
+\end{table}
 
-It is a WMO-compliant monitoring net\\
-Describe the RAR (description of station and db/server)\\
-show a map with locations\\
-present a table with a summary of sensors, duration of monitoring, and so on. \\
-describe FTP setup
+\begin{figure}
+	\centering
+	\includegraphics[scale=.8]{figures/rarLocations}
+	\caption{Location of the RAR stations \note{currently including also shutted down stations}}
+	\label{fig:rarLocations}
+\end{figure}
 
+The monitoring network is in charge of the Agrometereological Regional Centre (CAR, \emph{Centro Agrometereologico Regionale}) under the Department for Agriculture of the Campania Region. The CAR is also in charge of producing pest risk bulletins for the agricultural firm of the Region.
 
-\subsection{Monitoring with Low-Cost Stations (Giuliano)}
+\paragraph{Integration in \gci} On hourly basis, the CAR send a bulletin containing the values of the measurements of the last 24 hours, on a 10-minute time scale. Each entry of the bulletin represents a point in time, and includes the values of all the variables measured by all the stations. The bulletin is sent via sFTP to a server located on the premises of the CRISP.
+
+In order to recover for possibly late measurements, on daily basis a recap bulletin is sent, including all the measurements of the last month, on a 10-minute time scale, with the same format of the hourly bulletin.
+
+\subsection{Monitoring with Low-Cost Stations}[Giuliano][todo]
+\note{include in the same map both networks if possible and develop few text description}\\
 The particular installation performed at 4 (or more) locations\ldots
 
-\subsection{Weatherprog (specific emphasis on QCheck)}
+\subsection{Weatherprog (specific emphasis on QCheck)}[Giuliano][wip] \label{weatherprog:casestudy}
+\note{ENHANCE}
+\gci is tailored to the requirements of the Campania Region.
+This is of particular relevance considering huge limitations and constraints therein present.
+Important limitations are the eco-environmental complexity of the study area, the scarcity of stations and the lack of long term time series for any station.
+Other constraints are the urgent need for monitoring and sharing agrometeorological data in the regional territory %(highlight the important step forward thanks to our GCI)
+and the urgent need for a system to assist the production of bulletins to help mitigate the effects of alien or autochthonous pests.
+ 
  \paragraph{Decoding of incoming data} Data as received from CAR is not suitable to be inserted into the data base. Each record of the incoming table contains all the measurements of all the climatic variables of all the stations in the RAR; such a record would clearly be poor effective and poor efficient, pointlessly grouping in a single record unrelated data; not to mention that such a record would violate WMO prescriptions about proper handling of climatic data \citep{wcdmp:cdms}.
  
  More importantly, the incoming table labels measurement of the same climatic variable with different names, making any attempt of data analysis impossible. To make things worse, the format of the incoming table is subject to change. The most relevant task of the decoding module is to map the different names of the same climatic variable to a standardised attribute, which is also employed by the database.
@@ -396,7 +576,7 @@ The particular installation performed at 4 (or more) locations\ldots
  
  To this end, the decoding module checks whether the data to be inserted is already present, since the insertion of a duplicate record would be rejected by the database. These checks have been optimised in order to avoid an excessive overhead due to database access: each database query is highly time consuming, fairly regardless of the complexity of the query. For this reason, it is highly impractical to check the presence of each value independently, on the contrary more complex queries, with the capability of validating a larger share of the data to be inserted, have been developed.
  
-As said earlier in \cref{RARStructure}, data is sent from CAR on an hourly basis,  containing all the measurements of the previous 24 hours. To handle the hourly dispatch and provide data to the end users as soon as they are available, the system is configured to automatically have a run of Weatherprog every hour, by means of the \texttt{cron} daemon of the Unix systems. This hourly run is in charge of updating the database with the data related to the last hour. Late updates of the incoming data are dealt with by another periodic run of Weatherprog, but on daily basis. This daily run works on the whole 24-hour incoming table, check which time ranges are missing within the database and fills them. \textcolor{Red}{It is useful to mention the daily run here, even if it has not been implemented yet}
+As said earlier in \cref{RARStructure}, data is sent from CAR on an hourly basis,  containing all the measurements of the previous 24 hours. To handle the hourly dispatch and provide data to the end users as soon as they are available, the system is configured to automatically have a run of Weatherprog every hour, by means of the \texttt{cron} daemon of the Unix systems. This hourly run is in charge of updating the database with the data related to the last hour. Late updates of the incoming data are dealt with by another periodic run of Weatherprog, but on daily basis. This daily run works on the whole 24-hour incoming table, check which time ranges are missing within the database and fills them.
 
 \paragraph{Automatic quality control (semi-automatic on demand)}
 The quality check reads data stored in a relational database (in our case PostgreSQL)[UP]\\
@@ -412,7 +592,7 @@ kind of checks (range, logic, climatologic, temporal, spatial, ...)
     \item qcheck h24, T + R
 \end{itemize}
 
-\subsection{Integration of the monitoring networks}\label{Integration}
+\subsection{\note{[MOVE TO LCN]} Integration of the monitoring networks\label{Integration}}[Giuliano][done]
 In this paragraph we describe the existence of more monitoring networks having different characteristics in the same study area.
 This means that a higher degree of generality in the logic of the qcheck framework is required.
 For this purpose, we tested the qcheck to both the permanent and low-cost network
@@ -430,11 +610,32 @@ For this purpose, we tested the qcheck to both the permanent and low-cost networ
     \end{itemize}
 \end{itemize}
 
+\section{Results}[Giuliano][todo]
+\note{[move "Results" to case study]}
+\begin{itemize}
+    \item our GCI can be adapted to a (regional) agrometeo monitoring network to produce qchecked point and grid data
+    \item thanks to this, whatever service can be mounted on it, such as (search for REFs for each item):
+    \begin{itemize}
+        \item crop simulation (e.g. for biomass production)
+        \item irrigation water management
+        \item fertilisation management
+        \item pest risk management (use of pesticides)
+        \item rural land use planning
+        \item zoning (crops management)
+        \item land capability and land evaluation
+        \item landslides
+        \item civil protection (and alerts)
+        \item forest modelling, simulation and planning
+        \item 
+    \end{itemize}
+\end{itemize}
 
-\section{Results}
-\ldots
+\note{ elsewhere: [1](allowing temporal/spatial stats queries and embedding CUDA codes (on the client-side GUI) for fast calculation); [2] (Then also WeatherProg itself has major CUDA developments in order to speedup crucial and time-consuming calculations such that of making spatial interpolation at any pixel of the study area).) }
 
-\section{Discussion}
+\section{Discussion}[Giuliano][todo]
+
+\note{[MOVE ELSEWHERE]} The need for tools that can enhance the climatic data distribution, improving environment/farm management; this implies that in Italy (and also find the EU regulation and apply the discourse to EU itself) PAN advises administrative units in charge of agrometeorological publication to provide climatic data but also pests bulletins (by using possibly mechanistic modelling) based on climatic data which are able to support decision making at the farm level, with the result of decreasing the amount of pesticides with the twofold effect of reducing costs and diminishing environmental impact of by-products.
+
 \begin{itemize}
     \item Are the low-cost stations good enough for
     \begin{itemize}
@@ -452,10 +653,12 @@ For this purpose, we tested the qcheck to both the permanent and low-cost networ
     \item Short time interval, and only one point, for evaluation
 \end{itemize}
 
-\section{Conclusions}
-[COPIED](**)The importance of tools like the GCI / WeatherProg engine that can provide a support for agencies constrained to adopt such technological advancements/improvements to raise the quality of the delivered support they can offer to farmers and stakeholders.
-[COPIED]There is an evident gap between raw agrometeorological observations made by sensors in gauges in a monitoring network and the necessity to provide public access to data of good quality in the form of multipoint time series or of a temporal stack of digital maps.
-[COPIED]WeatherProg is able to fill this gap and to simplify(stress this concept, i.e. that WeatherProg simplifies al operations!!!!) the implementation of services (that are mandatory!) necessary to support agriculture for todays threatens and to coadiuvate decision making in environmental management. It includes the state of the art of methods embedded in the main modules of the program.
+\section{Conclusions}[Giuliano][todo]
+\note{[COPIED]}(**) The importance of tools like the GCI / WeatherProg engine that can provide a support for agencies constrained to adopt such technological advancements/improvements to raise the quality of the delivered support they can offer to farmers and stakeholders.
+
+\note{[COPIED]} There is an evident gap between raw agrometeorological observations made by sensors in gauges in a monitoring network and the necessity to provide public access to data of good quality in the form of multipoint time series or of a temporal stack of digital maps.
+
+\note{[COPIED]} WeatherProg is able to fill this gap and to simplify(stress this concept, i.e. that WeatherProg simplifies al operations!!!!) the implementation of services (that are mandatory!) necessary to support agriculture for todays threatens and to coadiuvate decision making in environmental management. It includes the state of the art of methods embedded in the main modules of the program.
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
