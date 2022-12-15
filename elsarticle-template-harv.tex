@@ -40,6 +40,11 @@
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
 
+%% Giuliano: add support for tif images
+\usepackage{epstopdf}
+\epstopdfDeclareGraphicsRule{.tif}{png}{.png}{convert #1 \OutputFile}
+\AppendGraphicsExtensions{.tif}
+
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
@@ -181,7 +186,8 @@
 %\title{A cyber-physical infrastructure for agricultural meteorology and planning}
 %\title{A platform for agricultural meteorology management \note{and planning (need more in the text)}: \gci }
 %\title{Agricultural meteorology management \note{and planning (develop it in the text)}: the \gci platform }
-\title{A fully integrated platform for agricultural meteorology management and planning: the \gci at work \note{on data quality control} }
+%\title{A fully integrated platform for agricultural meteorology management and planning: the \gci at work \note{to create certified data with no gaps} }
+\title{ Qualified data production for agricultural meteorology management and planning }
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -189,13 +195,14 @@
 %% \address[label2]{}
 
 %\author{}
-\author[dia]{Giuliano Langella\corref{cor}}
+\author[dia,crisp]{Giuliano Langella\corref{cor}}
 \address[dia]{Department of Agriculture, University of Naples Federico II, Via Università 100, 80055 Portici, NA, Italy}
+\address[crisp]{Interdepartmental Centre on Earth Critical Zone, University of Naples Federico II, Via Università 100, 80055 Portici, NA, Italy}
 \cortext[cor]{Corresponding author}
 \ead{glangella@unina.it}
 
 \author[deeit]{Raffaele Martino}
-\author[deeit]{Massimo Nicolazzo}
+%\author[deeit]{Massimo Nicolazzo}
 \address[deeit]{Department of Electrical Engineering and Information Technology, University of Naples Federico II, Via Claudio 21, 80125 Naples, NA, Italy}
 
 \date{July 2022}
@@ -237,12 +244,12 @@
 \section{NOTES}
 \begin{itemize}
     \item Fig. 1, 2: trovare PPTX e modificare (Giul)
-    \item §5.completare sezione (Giul)
+    \item §5 completare sezione (Giul)
     \item §6.2: Fig.3: highlight networks + new figure (Raf)
     \item App B1 può andare in §6 (Raf: IMHO, all appendices may be removed. B1 might be recovered in §6, and the others could be moved in their dedicated papers just in case we might reconsider them)
 \end{itemize}
 
-Deadline for submission: 31-Jul-2022
+Deadline for submission: 31-Dec-2022
 
 \section{Introduction}[Giuliano][done]
 
@@ -360,7 +367,9 @@ At the topmost level, \gci is constituted by central components, responsible for
 \begin{figure}
 	\centering
 	\includegraphics[scale=.5]{figures/AgriMetSupport-fig.pdf}
-	\caption{High level architecture of the \gci cyber-physical system. \note{The deep learning block is speculative and is not part of the GCI yet.}}
+	\caption{High level architecture of the \gci cyber-physical system.
+             The non-pysical parts of the whole system - including the Services block - is running at the Granatellum data center managed by CRISP and located at the Department of Agriculture di the Universit\'a of Napoli Federico II.
+ }
 	\label{cyberPhysicalSystemFig}
 \end{figure}
 
@@ -381,7 +390,9 @@ An open source array database is used to stitch together the 2D maps or tiles ca
 Computations (trimming and slicing) on these data cubes are embarrassingly parallel, and scale up according to the number of available CPU cores.
 %The rasdaman DBMS \citep{baumann:rasdaman} has been chosen due to its representation of spatial data as datacubes, i.e. digital maps with more than two dimensions, where the third dimension is used to represent time.
 
-Finally, \gci includes various end-user interfaces to provide a number of different services. A data consulting web application publishes the agroclimatic data managed by the system to the general public, whereas more tailored services are provided through dedicated interfaces. A web-based interface is also available for officers in charge of the system to tune the operational parameters of WeatherProg's models. \note{really?}
+Finally, \gci includes various end-user interfaces to provide a number of different services.
+A data consulting web application publishes the agroclimatic data managed by the system to the general public, whereas more tailored services are provided through dedicated interfaces.
+%A web-based interface is also available for officers in charge of the system to tune the operational parameters of WeatherProg's models. \note{really?}
 
 \review{ An alternative presentation of \gci infrastructure is one the most commonly used to present a GCI, that is the distinction in data, logic and visualisation tiers.
 The data tier is distributed including at least two databases, the database maintained by the local government agency (e.g. Campania Region as showed in Section \ref{sec:casestudy}) in charge of retrieving raw records by the monitoring stations of the network, and the \gci central database in charge of collecting decoded raw measurements possibly coming from different networks.
@@ -413,7 +424,9 @@ WeatherProg starts automatically at predefined time intervals when a new report 
     \item Data decoding and ingestion. After the report is decoded according to time scale and sensors, data are ingested in PostgreSQL having PostGIS extension.
 
     \item Quality check and flagging of data. Quality checks of time series are performed to automatically demarcate good measurements from wrong and missing values, which are conveniently flagged for the subsequent infilling procedure.
-    An anomalous datum is detected thanks to a multilevel technology based on interlinked and different kinds of quality checks such as logical, climatologic, spatial, temporal and persistency checks. Certification of abnormality is semi-automatic and is the result of the combination of the data-driven WeatherProg checking procedure and the knowledge-based human checking in order to finally assign the definitive flag (for details see Section \ref{sec:qcheck}).
+    An anomalous datum is detected thanks to a multilevel technology based on interlinked and different kinds of quality checks such as range, continuity, climatological, spatial, temporal and persistency checks.
+    Certification of abnormality can be semi-automatic other than automatic.
+    The semi-automatic procedure is the result of the combination of both the data-driven WeatherProg checking procedure and the knowledge-based human checking in order to finally assign the definitive flag (for details see Section \ref{sec:qcheck}).
     
     \item Data infilling. Anomalies and missing data are all flagged to be %interpolated by means of an automatic linear regression procedure.
     infilled in order to get complete and homogeneous time series.
@@ -458,21 +471,24 @@ From now on, the time series is stable till the time element targeted by the las
 	\label{Fig:weatherprog:calls}
 \end{figure}
 
+\section{Create qualified (certified) data with no gaps}
+%The deviation or switch was introduced in the 10-minutes pipeline tackling the daily run dedicated to the creation of no-gap and certified data, as depicted in \cref{Fig:weatherprog:calls} . \note{(MODIFY THE FIGURE TO ADD THE DEVIATION/SWITCH GRAPHICALLY))}.
 
-\section{Quality control procedure \review{(maybe it's better to call it quality control everywhere)}}[Giuliano][wip] \label{sec:qcheck}
-WeatherProg has a quality control module capable to manage data at 10 minutes, hourly and daily time scales.
+\subsection{Quality control procedure \review{(maybe it's better to call it quality control everywhere)}}[Giuliano][review] \label{sec:qcheck}
+WeatherProg has a quality control module capable to managing data at 10 minutes, hourly and daily time scales.
 The quality control can be of different types, such as range, continuity, persistence, climatological, spatial and temporal and not all quality control types are available neither at all time scales nor for all agrometeorological variables.
-For simplicity, an overview of the quality control procedure is presented only at the 10 minutes time scale for air temperature both in this section and in section \ref{QcheckValidation} where the quality control procedure is validated.
 Possible outcomes of any quality check type are reported in \cref{tab:flagsSummary} with a description for each flag.
 
-The quality control procedure for air temperature at 10 minutes time scale is fully reported in \cref{tab:qcheck_m10_airT}. There is a logic based on 15 different combinations of four quality control types, namely range, continuity, persistence and spatial.
-Each combination can be reached only if all previous combinations are not met while the sequence of combinations depends on the absolute and relative weight given to each control type (and also accounts for the desired outcome status).
+For simplicity, an overview of the quality control procedure (\cref{tab:qcheck_m10_airT}) is presented only at the 10 minutes time scale for air temperature both in this section and in section \ref{QcheckValidation} where the quality control procedure is validated.
+There is a logic based on 15 different combinations of four quality control types, namely range, continuity, persistence and spatial.
+Each combination shown in \cref{tab:qcheck_m10_airT} can be reached only if all previous combinations are not met while the sequence of combinations depends on the absolute and relative weight given to each control type and also accounts for the desired outcome status.
 As an example, if the range control type returns a wrong flag it is unnecessary to check any other control type and the overall quality control procedure has an outcome flag equal to wrong.
 Further, if range is correct and continuity is wrong it is unnecessary to consider the flags for persistence and spatial control types and the overall quality control procedure has an outcome flag equal to wrong again.
 Conversely, if range is correct and continuity is dubious than the spatial flag is relevant to get an overall outcome wrong rather than dubious according to the continuity status of other stations in the spatial neighbourhood of the station being processed.
 In general, the logic forces to reduce the probability of dubious flags in favour of a slight increment in mismatched outcomes (both false negatives and false positives) compared to a large increment in well fitted outcomes (both true positives and true negatives).
+The descriptions of flags for the outcome of the quality control procedure can be found in \cref{tab:qcheckOutcomeFlagsSummary}.
 
-The overall quality control flag descriptions are presented in \cref{tab:qcheckOutcomeFlagsSummary}.
+\note{I would fuse \cref{tab:flagsSummary} and \cref{tab:qcheckOutcomeFlagsSummary}}.
 
 \begin{table}[]
     \begin{scriptsize}
@@ -494,7 +510,6 @@ The overall quality control flag descriptions are presented in \cref{tab:qcheckO
     \label{tab:flagsSummary}
     \end{scriptsize}
 \end{table}
-
 
 \begin{table}[]
     \begin{scriptsize}
@@ -527,7 +542,6 @@ The overall quality control flag descriptions are presented in \cref{tab:qcheckO
     \label{tab:qcheck_m10_airT}
 \end{table}
 
-
 \begin{table}[]
     \begin{scriptsize}
     \centering
@@ -547,6 +561,21 @@ The overall quality control flag descriptions are presented in \cref{tab:qcheckO
     \label{tab:qcheckOutcomeFlagsSummary}
     \end{scriptsize}
 \end{table}
+
+\subsection{Infill gaps procedure}
+\note{Describe here the mlr proc that will be used in validation study later in the paper.}
+%Anomalies and missing data are all flagged to be %interpolated by means of an automatic linear regression procedure.
+%infilled in order to get complete and homogeneous time series.
+%Different methods are available such as a deterministic approach based on moving average with a growing kernel, or a statistical method approach using a stepwise multilinear regression using other stations after an iterative optimization step to properly select the time series length and the regression covariates.
+
+WeatherProg has a module dedicated to infill anomalies and gaps in the data.
+For the purpose of this paper, the stepwise multilinear regression infilling type was used in order to allow for a validation analysis.
+The logic of the infill module is based on the selection of all gaps and anomalies for each station. %given a reference interval of time.
+Then, the infill module runs the statistical interpolation block which includes an iterative optimisation guiding the selection of both the time series length and the number of regression covariates (i.e. other stations used as independent variables).
+The model characterised by the lowest RMSE is selected to predicted the infilled value for that station in that date and time.
+The procedure is capable of dealing with all the anomalies and gaps while for any station found in a reference time interval.
+The infill module takes care to avoid the selection of auxiliary singletons that couldn't pass the quality check procedure (i.e. flags that are different from CORRECT or DUBIOUS).
+
 
 
 \section{Case study: \gci at work in Campania Region}[Raffaele][review] \label{sec:casestudy}
@@ -631,7 +660,7 @@ The least monitored variable is air pressure, with only 9 stations currently mea
         Soil humidity & 13 & 13 & 0\\
         Leaf wetness & 23 & 25 & 0 
     \end{tabular}
-    \caption{Detail of the monitoring networks available  in Campania. For the agrometereological (lo direi piuttosto per la protezione civile, che condivide solo due variabili con noi) network, data is reported according to what has been made available to \gci from the CAR.}
+    \caption{Details of the monitoring networks available  in Campania Region combining measurement stations belonging to both agroclimatic and hydrogeological networks.}
     \label{tab:rarSummary}
 \end{table}
 
@@ -660,7 +689,7 @@ Data as received from CAR is not suitable to be inserted into the data base. Eac
  
  More importantly, the incoming table labels measurement of the same climatic variable with different names, making any attempt of data analysis impossible. To make things worse, the format of the incoming table is subject to change. The most relevant task of the decoding module is to map the different names of the same climatic variable to a standardised attribute, which is also employed by the database.
 
- \review{(RENDERLO IN MODO PI\'U ACCATTIVANTE: cos\'i sembra una nota di un manuale.) For performance reasons, the data insertion is performed with a single SQL INSERT statement per climatic variable. This means that, given the all-or-nothing behaviour of SQL statements, each record to be inserted must be valid, otherwise the whole insertion will fail. It is therefore Weatherprog's responsibility to ensure that all the data submitted to the database can actually be inserted.}
+ \review{(RENDERLO IN MODO PI\'U ACCATTIVANTE: cos\'i sembra una nota di un manuale, evitiamole beghe interne di chi fa cosa, poniamoci come utenti / lettori) For performance reasons, the data insertion is performed with a single SQL INSERT statement per climatic variable. This means that, given the all-or-nothing behaviour of SQL statements, each record to be inserted must be valid, otherwise the whole insertion will fail. It is therefore Weatherprog's responsibility to ensure that all the data submitted to the database can actually be inserted.}
  
  To this end, the decoding module checks whether the data to be inserted is already present, since the insertion of a duplicate record would be rejected by the database. These checks have been optimised in order to avoid an excessive overhead due to database access: each database query is highly time consuming, fairly regardless of the complexity of the query. For this reason, it is highly impractical to check the presence of each value independently, on the contrary more complex queries, with the capability of validating a larger share of the data to be inserted, have been developed.
  
@@ -679,7 +708,7 @@ In order to achieve this objective, WeatherProg was equipped with a smart deviat
 A validation study was carried out for the scope of this paper on 10-minutes air temperature data, in year 2021, for both RAR and DPC networks, in both the quality control and infilling  modules.
 The deviation or switch was introduced in the 10-minutes pipeline tackling the daily run dedicated to the creation of no-gap and certified data, as depicted in \cref{Fig:weatherprog:calls} . \note{(MODIFY THE FIGURE TO ADD THE DEVIATION/SWITCH GRAPHICALLY))}.
 The insert of noise simulates what could actually happen when measuring true anomalous data but forcing perturbed signals to overstress the modules.
-If the perturbation switch is active, noisy data are created according to different levels of amplitude ($A$) and quota ($Q$), where amplitude is a magnitude exaggeration factor applied to air temperature ($A=10$ in this validation study) and quota accounts for the amount of raw measurements in which insert noise ($Q=30\%$ in this validation study).
+If the perturbation switch is active, noisy data are created according to different levels of absolute amplitude ($A$) and quota ($Q$), where amplitude is a magnitude exaggeration factor applied to air temperature ($A=10$ in this validation study) and quota accounts for the relative amount of raw measurements in which insert noise ($Q=30\%$ in this validation study).
 The following procedure was repeated for each of the 30 randomly selected days within year 2021, where each day has $N_{rec}=12816$ records (144 10-minutes $\times$ 89 stations):
 
 \begin{enumerate}
@@ -693,15 +722,17 @@ The following procedure was repeated for each of the 30 randomly selected days w
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=.35]{figures/qcheck_perturbation_study.jpeg}
+	\includegraphics[scale=.30]{figures/Fig_qck_versions.tif}
 	\caption{ Two panels: (a) evolution performance of the quality control procedure on air temperature; (b) performance of the infil procedure.
     ver01: uses a preliminary version of range, persistence and continuity control types; ver02: adds spatial control type to ver01; ver03: introduces enhancements to the continuity and spatial control types while reducing the amount of dubious outcomes; ver04: overall enhancements given by a smarter quality control logic, as reported in \cref{tab:qcheck_m10_airT}. TN: true negative; TP: true positive; FN: false negative; FP: false positive; DU: dubious; UU: undecided or unprocessed. }
 	\label{fig:perturbationCharts}
 \end{figure}
 
 The modules for both the quality control and the infill procedures were run using as input the noisy data generated as explained above.
-In \cref{fig:perturbationCharts} it is shown the evolution of the quality control thanks to the feedback received by the validation study.
+In \cref{fig:perturbationCharts} it is shown the evolution of the quality control thanks to the feedback received by the results of validation study.
 
+\note{add: (1) rmse on qcheck; (2) rmse on infilled data}\\
+Need to show results of the perturbation study.
 
 
 %according to the different modules (qcheck, infill, tscale aggregation) including a manual implementation of a geostatistical analysis (variogram + kriging with err.var). I evaluate the propagation of uncertainty in other calculations using agrometeo data, such as bioclimatic indices or simulation models, such as plasmorossi using hourly data.
@@ -858,7 +889,7 @@ The particular installation performed at 4 (or more) locations\ldots
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
 %%
-\bibliographystyle{elsarticle-harv} 
+%\bibliographystyle{elsarticle-harv} 
 \bibliography{biblio-items.bib}
 
 %% else use the following coding to input the bibitems directly in the
