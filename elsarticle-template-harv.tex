@@ -250,11 +250,9 @@
 % I follow the suggestion given in [B] to write the following abstract.
 An interoperable cyber-physical system -- called AgriMetSupport -- was implemented to manage sensor networks, weather stations, agrometeorological data, and services that can be developed sequentially (e.g., models enabling territorial and integrated risk management).
 %Such a system could become crucial to support anyone responsible for establishing and maintaining an advanced sensor network, including territorial bodies, researchers, and other stakeholders such as consortia of farmers.
-
 Such a system could become crucial to support anyone responsible for establishing and maintaining an advanced sensor network, including territorial bodies, researchers, data analysts, and other stakeholders such as consortia of farmers, and those providing point and gridded sensor data support within research and development projects.
 In the context of agrometeorological networks, this task is becoming increasingly difficult because it is required to deal with complex operations carried out using agrometeorological data such as data storage, quality check, missing data management, build continuous raster maps by means of geospatial modelling, data sharing with stakeholders and so forth.
 In addition, responsible entities should implement these actions by pursuing complimentary objectives such as the adoption of standardized, scientifically-sound and perhaps shared procedures among federated territories.
-
 %AgriMetSupport can support to carry out most of these tasks while fulfilling the requirements outlined.
 AgriMetSupport is made by physical, software and modular components which are all specifically designed to build an operative cyber-physical system supporting responsable entities in their management and planning tasks, but also any other stakeholder dealing with the production or the consumption of either sensor data or any kind of service based on these data.
 The fundamental aim of the work proposed in this paper is to validate the production of qualified and certified data using well-tuned procedures available along with AgriMetSupport.
@@ -277,6 +275,13 @@ agricultural meteorology \sep cyber-physical system \sep validation of quality c
 % 3) an advanced logic of qualified and certified data production is validated
 % 4) the proposed system simplifies any step from point-based measurements to digital climatic grids
 % 5) the proposed system is in production in Campania Region and can be applied and scaled elsewhere
+
+%HIGHLIGHTS (2024-05-18)
+%	•	Innovative framework: development of AgriMetSupport, a modular and interoperable Geospatial Cyber-Infrastructure (GCI) tailored for sensor networks.
+%	•	Core engine: Implementation of WeatherProg, the core engine, which automates data collection, validation, and geospatial prediction from diverse agrometeorological sensors.
+%	•	Qualified data production: introduction of robust procedures for data quality control and gap-filling, ensuring high accuracy and reliability of agrometeorological data.
+%	•	Real-world application: successful application and validation of AgriMetSupport in the Campania Region, demonstrating its effectiveness in real-world agricultural management.
+%	•	Granularity and flexibility: demonstration of the system’s scalability, granularity and flexibility to adapt to various network configurations and stakeholder needs across different territories.
 
 \end{frontmatter}
 
@@ -343,6 +348,7 @@ Indeed, amongst others, it helps:
         \item forecasting plant pests and diseases \citep{IPM_decisions}.
     \end{enumerate*}
 
+\subsection{Related work}
 There is an increasing demand for the production, in digital format, of weather and climatic data of good quality within the earth critical zone both 
     for practical applications (e.g. the need to know climatic patterns in a farm to improve the management)
     and
@@ -367,11 +373,10 @@ for land management and soil conservation \citep{Terribile:LandSupport:2024},
 for early warning systems in areas of weather and climate \citep{Bopape_2019},
 and so forth.
 %\review{ include also examples of possibile similar GCIs such as \citep{Bopape_2019}...; hydrometeorological;  }
-
 There exist a huge production of DSS tools on quite every issue related to the agricultural and forestry systems.
 %\note{what is missing? a GCI on agrometerological data to facilitate the assembly of tools to support decision process in issues related to agriculture and forestry.  }
 To authors' knowledge, there is a gap in literature concerning Geospatial Cyber-Infrastructures (GCIs) fully dedicated to agriculture meteorology, both to implement a stand-alone agrometeorological platform and to facilitate the assembly of tools to support the decision process in issues related to the earth critical zone with particular reference to agriculture and forestry. 
-Results obtained on scopus.com (May 2024) reveals that 386 documents (articles, reviews and books) were published on cyber infrastructures applied in (agro-)meteorology, while none of them were relevant to the peculiar scope of my work.
+Results obtained on scopus.com (May 2024) reveals that 386 documents (articles, reviews and books) were published on cyber infrastructures applied in (agro-)meteorology, while none of them were relevant to the peculiar scope of this work.
 % To authors' knowledge there is any work in literature dealing with GCI
 % SCOPUS = "geospatial cyber infrastructure agrometeorology" ==> 0 results
 % SCOPUS = "cyber infrastructure agrometeorology" ==> 0 results
@@ -379,23 +384,53 @@ Results obtained on scopus.com (May 2024) reveals that 386 documents (articles, 
 % SCOPUS = "geospatial agrometeorology decision support" ==> 0 results
 % SCOPUS,Dec-2022 = cyber AND infrastructure AND meteorology ==> 314 documents, see list of selected 25 documents in my private area on SCOPUS.
 
-In this paper a strongly modular GCI, called AgriMetSupport
-is proposed as a general technological framework being a WB-SDSS, that can be fully tailored to the specific needs of an existent sensors network, such as an agrometeorological network managed by local entrusted/responsible entities.
-In this paper, "responsible entities" or "stakeholders" refer to local government agencies, researchers, consortia of farmers, and other similar entities involved in the management and use of agrometeorological data.
+\subsection{Objectives}
+% Research Problem:
+Effective management and planning in agricultural meteorology require accurate, high-quality, and continuously updated data.
+However, the increasing complexity of agrometeorological networks, coupled with the need for standardized and scientifically sound procedures, poses significant challenges for stakeholders responsible for these tasks.
+To address these challenges, a comprehensive solution through the development of a modular and interoperable cyber-physical system, called AgriMetSupport, is proposed.
 
-The proposed GCI is based on a software component, namely WeatherProg \citep{langella:weatherprog2014,langella:weatherprog2016}, which represents the main engine of the information technology system.
-It has the potential of being the basic engine of several geospatial-based services in agriculture, in which both the weather and the climatic information is of paramount importance.
-WeatherProg has the key advantage of implementing all the tasks from gathering the raw measurements coming from the agrometeorological sensors till the delivery of digital climatic maps at different time steps (e.g. hourly, daily, and so forth).
+% Objectives:
+To achieve this goal, the present study focuses on the following objectives:
+\begin{enumerate}
+    \item develop a modular and interoperable cyber-physical system (Agri\-Met\-Support) that supports the  management of agrometeorological data.
+    \item tune a fully automatic procedure %(or assisted if required) 
+    to quality check and gap-fill measurements using standardised procedures %obtained from gauging stations.
+    \item validate the system's ability to produce qualified, certified, and gap-filled data.
+    \item demonstrate the system's applicability and effectiveness in a real-world case study involving the Campania Region in Italy.
+\end{enumerate}
 
-Together with the presentation of the general template WB-SDSS, the results of applying the AgriMetSupport GCI to a specific case study, that is in Campania Region (South of Italy), is shown with the specific focus of producing qualified and certified data.
-The task consists in tuning a fully automatic or assisted procedure to quality check and gap-fill the measurements carried out at gauged points.
-This is of particular relevance due to limitations and constraints (showed in \cref{sec:qcheck}) of the Campania Region agrometeorological network.
+% agrimetsupport
+%AgriMetSupport is a general technological framework, functioning as a WB-SDSS.
+%This system can be fully tailored to the specific needs of an existent sensor networks, such as an grometeorological networks managed by local entrusted/responsible entities.
+%In this context, "responsible entities" or "stakeholders" refer to local government agencies, researchers, consortia of farmers, and other similar entities involved in the management and use of agrometeorological data.
+% weatherprog
+%The proposed GCI is based on a software component, namely WeatherProg \citep{langella:weatherprog2014,langella:weatherprog2016}, which serves as the main engine of the information technology system.
+%WeatherProg has the potential to be the basic engine of several geospatial-based services in agriculture, where both weather and climatic information is of paramount importance.
+%It implements all tasks from gathering raw measurements from agrometeorological sensors to delivering digital climatic maps at different time steps (e.g., hourly, daily).
 
-The work is presented following a hierarchical structure, starting from the most general to the most particular part.
+This study presents the design, implementation, and validation of AgriMetSupport, focusing on its modular components and the core engine, WeatherProg.
+%The fundamental aim is to validate the production of qualified and certified data using well-tuned procedures available within AgriMetSupport.
+The system can be fully tailored to the specific needs of existing sensor networks %, such as grometeorological networks
+managed by local entrusted/responsible entities.
+In this context, "responsible entities" or "stakeholders" refer to local government agencies, researchers, consortia of farmers, and other similar entities involved in the management and use of agrometeorological data.
+The main finding is that such a cyber-physical structure can be spread to distinct territories (or distinct networks within the same territory) or used as a centralized system to manage federated monitoring networks.
+It can ease the management of sensor networks by responsible entities while leaving complex issues to researchers or domain experts.
+
+% Hypotheses:
+%\note{1. AgriMetSupport can significantly improve the efficiency and accuracy of agrometeorological data management compared to existing systems, if any.
+%2. The system's modular architecture allows for flexible adaptation to different network configurations and stakeholder needs.
+%3. The validated data produced by AgriMetSupport will enhance decision-making processes in agricultural management and planning.}
+
+%Together with the presentation of the general template WB-SDSS, the results of applying the AgriMetSupport GCI to a specific case study, that is in Campania Region (South of Italy), is shown with the specific focus of producing qualified and certified data.
+%The task consists in tuning a fully automatic or assisted procedure to quality check and gap-fill the measurements carried out at gauged points.
+%This is of particular relevance due to limitations and constraints (showed in \cref{sec:qcheck}) of the Campania Region agrometeorological network.
+
+The work is organized hierarchically, starting with general concepts and items and progressing to more detailed parts.
 In section \ref{sec:gci} the overall geospatial cyber-infrastructure (AgriMetSupport) implementing the decision support system is described.
 In section \ref{sec:weatherprog} the core engine (WeatherProg) processing the agrometeorological data is shown with emphasis on the main modules and their role in the infrastructure.
 It is emphasised the high flexibility of the whole platform and the high granularity of its components.
-Section \ref{sec:qcheck} provide details about the data quality control and the infilling procedures, highlighting the operations required to produce data of good quality to be used in cascade in other 
+Section \ref{sec:qck+fill} provides details about the data quality control and the gap-filling procedures, highlighting the operations required to produce data of good quality to be used in cascade in other 
 applications.
 The deployment of the AgriMetSupport GCI to a real case, namely in Campania Region (South of Italy), is presented in section \ref{sec:casestudy}.
 
@@ -545,7 +580,7 @@ From now on, the time series is stable till the time element targeted by the las
 	\label{Fig:weatherprog:calls}
 \end{figure}
 
-\section{Create qualified and certified data with no gaps}
+\section{Create qualified and certified data with no gaps} \label{sec:qck+fill}
 %The deviation or switch was introduced in the 10-minutes pipeline tackling the daily run dedicated to the creation of no-gap and certified data, as depicted in \cref{Fig:weatherprog:calls} . \note{(MODIFY THE FIGURE TO ADD THE DEVIATION/SWITCH GRAPHICALLY))}.
 
 \subsection{Quality control procedure} \label{sec:qcheck}
@@ -980,11 +1015,11 @@ It shows moderately low mean ($\sim1.13$) and standard deviation ($\sim1.25$) wh
 
 
 \section{Conclusions}
-This study has demonstrated the versatility and efficacy of AgriMetSupport, a Geospatial Cyber-Infrastructure (GCI), in managing and optimizing agrometeorological networks within the Campania Region.
-The case study not only highlights the system's capacity for scaling across territories and networks but also emphasizes its potential in enhancing the accessibility of data from various IoT sensors for a wide range of applications.
+This study has demonstrated the versatility and efficacy of AgriMetSupport, a Geospatial Cyber-Infrastructure (GCI), in managing and optimising agrometeorological networks within the Campania Region.
+The case study not only highlights the system's capacity for scaling across territories and networks but also emphasises its potential in enhancing the accessibility of data from various IoT sensors for a wide range of applications.
 
 AgriMetSupport has proven crucial 
-for territorial agencies, research pro-jects and private companies attempting
+for territorial agencies, research pro\-jects and private companies attempting
 to leverage technological advancements and improve the support provided to farmers and stakeholders. 
 By bridging the gap between raw agrometeorological observations and the need for high-quality, accessible data, AgriMetSupport simplifies the operational complexities associated with data management and service implementation. 
 This simplification is critical in today's agriculture, where the demand for precision and efficiency are constantly growing.
@@ -1034,6 +1069,10 @@ Subsequent support from the Phytosanitary Service (UOD21) of the Directorate Gen
 
 These funding sources highlight the collaborative and multidisciplinary nature of this research and development, reflecting a wide commitment to enhancing agricultural technologies and practices.% in the Campania Region.
 
+
+\section{Declaration of generative AI and AI-assisted technologies in the writing process}
+During the preparation of this work the author used OpenAI/ChatGPT in order to improve readability. 
+After using this tool/service, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
