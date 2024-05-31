@@ -154,7 +154,7 @@
 	}
 }
 
-\newcommand{\gci}{\update{AgriMetSupport}\xspace}
+%\newcommand{\gci}{\update{AgriMetSupport}\xspace}
 % options are: Agriprog, WeatherProg-GCI, AgriSupport, AgriMetSupport, 
 
 \journal{Computers and Electronics in Agriculture}
@@ -206,31 +206,9 @@
 \cortext[cor]{Corresponding author}
 \ead{glangella@unina.it}
 
-%\author[dia]{Raffaele Martino}
-%\author[deeit]{Raffaele Martino}
-%\address[dia]{Department of Agriculture, University of Naples Federico II, Via Università 100, 80055 Portici, NA, Italy}
-
-%\author[deeit]{Massimo Nicolazzo}
-%\address[deeit]{Department of Electrical Engineering and Information Technology, University of Naples Federico II, Via Claudio 21, 80125 Naples, NA, Italy}
-
-\date{July 2022}
+\date{May 2024}
 
 \begin{abstract}
-% See the following to write the abstract: https://www.scopus.com/record/display.uri?eid=2-s2.0-85020284965&origin=resultslist&sort=cp-f&src=s&st1=webgis&st2=dss&nlo=&nlr=&nls=&sid=05d242451f19678a21dc297f4479242b&sot=q&sdt=cl&cluster=scosubtype%2c%22ar%22%2ct&sl=30&s=TITLE-ABS-KEY-AUTH%28webgis+dss%29&relpos=3&citeCnt=4&searchTerm=
-
-%[COPIED] The current agrometeorological monitoring of the Campania Region is both inadequate for its users and insufficient to support the simulation of pest risk models.
-%This work describes a cyber-physical system which has been designed to overcome these limitations, with the objective of
-%	\begin{enumerate*}
-%		\item automate all the tasks involved in climatic data management, including also the intervention of the human expert when appropriate,
-%		\item develop dependable pest risk models and provide the input data they need, and 
-%		\item provide real-time agrometereological data presentation.
-%	\end{enumerate*}
-%	The system is built around an automatic climatic data management engine called WeatherProg, which manages data collection, quality control, data reconstruction, and digital maps production.
-%	A proper climatic database has been developed to support the operations of WeatherProg, as well as a Web application for real-time publication of data handled by the software.
-%	Pest risk models, fed by point measurements and the digital maps produced by WeatherProg, are going to be prototyped.
-%	Furthermore, a new small measurement station has been prototyped, with the aim of being low-cost and easy to relocate, in order to support the characterisation and models parameterisation for different areas.
-%	This paper illustrates the current status of the system and discusses future directions.
-
 % Computers & Electronics in Agriculture: no longer than 400 words.
 %Key Steps to Plan Writing an Abstract [A]
 % 1. Introduction—what is the topic?
@@ -249,11 +227,9 @@
 %
 % I follow the suggestion given in [B] to write the following abstract.
 An interoperable cyber-physical system -- called AgriMetSupport -- was implemented to manage sensor networks, weather stations, agrometeorological data, and services that can be developed sequentially (e.g., models enabling territorial and integrated risk management).
-%Such a system could become crucial to support anyone responsible for establishing and maintaining an advanced sensor network, including territorial bodies, researchers, and other stakeholders such as consortia of farmers.
 Such a system could become crucial to support anyone responsible for establishing and maintaining an advanced sensor network, including territorial bodies, researchers, data analysts, and other stakeholders such as consortia of farmers, and those providing point and gridded sensor data support within research and development projects.
 In the context of agrometeorological networks, this task is becoming increasingly difficult because it is required to deal with complex operations carried out using agrometeorological data such as data storage, quality check, missing data management, build continuous raster maps by means of geospatial modelling, data sharing with stakeholders and so forth.
 In addition, responsible entities should implement these actions by pursuing complimentary objectives such as the adoption of standardized, scientifically-sound and perhaps shared procedures among federated territories.
-%AgriMetSupport can support to carry out most of these tasks while fulfilling the requirements outlined.
 AgriMetSupport is made by physical, software and modular components which are all specifically designed to build an operative cyber-physical system supporting responsable entities in their management and planning tasks, but also any other stakeholder dealing with the production or the consumption of either sensor data or any kind of service based on these data.
 The fundamental aim of the work proposed in this paper is to validate the production of qualified and certified data using well-tuned procedures available along with AgriMetSupport.
 The main finding is that such a cyber-physical structure can be spread to distinct territories (or distinct networks within the same territory) or can be used as the centralised system to manage federated monitoring networks.
@@ -276,30 +252,25 @@ agricultural meteorology \sep cyber-physical system \sep validation of quality c
 % 4) the proposed system simplifies any step from point-based measurements to digital climatic grids
 % 5) the proposed system is in production in Campania Region and can be applied and scaled elsewhere
 
-%HIGHLIGHTS (2024-05-18)
+% HIGHLIGHTS (2024-05-18)
 %	•	Innovative framework: development of AgriMetSupport, a modular and interoperable Geospatial Cyber-Infrastructure (GCI) tailored for sensor networks.
 %	•	Core engine: Implementation of WeatherProg, the core engine, which automates data collection, validation, and geospatial prediction from diverse agrometeorological sensors.
 %	•	Qualified data production: introduction of robust procedures for data quality control and gap-filling, ensuring high accuracy and reliability of agrometeorological data.
 %	•	Real-world application: successful application and validation of AgriMetSupport in the Campania Region, demonstrating its effectiveness in real-world agricultural management.
 %	•	Granularity and flexibility: demonstration of the system’s scalability, granularity and flexibility to adapt to various network configurations and stakeholder needs across different territories.
 
+% HIGHLIGHTS (2024-31-05) - After Editor comments
+% 1.	AgriMetSupport: a modular cyber infrastructure for sensor networks management
+% 2.	WeatherProg automates data collection, validation, and prediction from sensors
+% 3.	Robust control and gap-filling ensure accurate, reliable IoT data
+% 4.	AgriMetSupport validated in Campania, proving effective in agriculture management
+% 5.	System’s scalability and flexibility adapt to various networks and stakeholder needs
+
 \end{frontmatter}
 
 %\tableofcontents
 
 \linenumbers
-
-%% main text
-%\section{}\label{}
-%\section{NOTES}
-%\begin{itemize}
-%    \item Fig. 1, 2: trovare PPTX e modificare (Giul)
-%    \item §5 completare sezione (Giul)
-%    \item §6.2: Fig.3: highlight networks + new figure (Raf)
-%    \item App B1 può andare in §6 (Raf: IMHO, all appendices may be removed. B1 might be recovered in §6, and the others could be moved in their dedicated papers just in case we might reconsider them)
-%\end{itemize}
-
-%Deadline for submission: 31-Dec-2022
 
 \section{Introduction}
 
@@ -365,7 +336,7 @@ One example working in USA using already checked daily data, is given by the exp
 %Support systems to agrometeorological practices and services comprise data (so quantification), research, training/education/extension and policy environments. Especially in industrialized countries mathematical models are increasingly used in operational agricultural meteorology, in conjunction with Geographic Information Systems (GISs) to provide inputs to Decision Support Systems (DSSs).
 Especially in more developed countries, mathematical models are increasingly used in agriculture in conjunction with Geographic Information Systems (GISs), also via web in the form of WebGIS, to provide inputs to Decision Support Systems (DSSs), possibly via web in the form of Web Based geoSpatial Decision Support Systems (WB-SDSS).
 Examples of WB-SDSS can be found 
-for heavy metal pollution management in soils \citep{Wang:wbsdss:2005}, 
+for heavy metal pollution management in soils \citep{Wang:wbsdss:2017}, 
 for livestock manure management \citep{Acutis:wbsdss:2014}, 
 for locust prevention and control \citep{Yao:wbsdss:2017}, 
 for optimized crop irrigation \citep{Giusti:wbsdss:2015}, 
@@ -421,7 +392,6 @@ It can ease the management of sensor networks by responsible entities while leav
 %\note{1. AgriMetSupport can significantly improve the efficiency and accuracy of agrometeorological data management compared to existing systems, if any.
 %2. The system's modular architecture allows for flexible adaptation to different network configurations and stakeholder needs.
 %3. The validated data produced by AgriMetSupport will enhance decision-making processes in agricultural management and planning.}
-
 %Together with the presentation of the general template WB-SDSS, the results of applying the AgriMetSupport GCI to a specific case study, that is in Campania Region (South of Italy), is shown with the specific focus of producing qualified and certified data.
 %The task consists in tuning a fully automatic or assisted procedure to quality check and gap-fill the measurements carried out at gauged points.
 %This is of particular relevance due to limitations and constraints (showed in \cref{sec:qcheck}) of the Campania Region agrometeorological network.
@@ -638,25 +608,6 @@ In general, the implemented logic forces to reduce the probability of dubious fl
     \end{scriptsize}
 \end{table}
 
-%\begin{table}[]
-%    \begin{scriptsize}
-%    \centering
-%    \begin{tabular}{r l p{10cm}}
-%    % \multicolumn{2}{c}{Blablabla} \\
-%    \hline
-%    Flag & Abbreviation & Description \\
-%    \hline
-%	UNPROCESSED & UP & This measurement has not undergone quality control at all yet.\\
-%	CORRECT     & C  & This measurement is deemed correct by the quality control procedure.\\
-%	DUBIOUS     & D  & This measurement is suspicious, but the quality control procedure cannot decide neither for correctness nor for wrongness. A knowledge-based human checking is required. \\
-%	UNDECIDED   & UD & The measurement has been subject to the quality control procedure, but there is not sufficient ground yet to decide either for correctness or for wrongness. Reanalysis runs may have the additional information required to solve the indecision.\\
-%	WRONG       & W  & This measurement is deemed not correct by the quality control procedure.\\
-%   \hline
-%    \end{tabular}
-%    \caption{Possible outcome status of the quality control procedure.}
-%    \label{tab:qcheckOutcomeFlagsSummary}
-%    \end{scriptsize}
-%\end{table}
 
 \begin{table}[]
     \begin{scriptsize}
@@ -823,24 +774,12 @@ The monitoring network is managed by the Civil Protection Agency of the Campania
 On hourly basis, CAR and DPC send each a bulletin containing the 10-minute measurements of the last 24 hours.
 Each entry of the bulletin represents a point in time and includes the values of all the variables measured by any station.
 The two bulletins are sent via sFTP to a server located on the premises of the CRISP\footnote{CRISP is an Interdepartmental Research Centre of the University of Naples Federico II focusing on the \textit{Earth Critical Zone}.}.
-%In order to recover for possibly late measurements, on monthly basis a recap bulletin is sent, including all the measurements of the last month, on a 10-minute time scale, with the same format of the hourly bulletin.
-%In addition, a reanalysis pipeline runs daily with a time extent of 5 days which can recover bulletins possibly delivered with a time delay.
-
-%Data as received from CAR is not suitable to be inserted into the data base. Each record of the incoming table contains all the measurements of all the climatic variables of all the stations in the RAR; such a record would clearly be poor effective and poor efficient, pointlessly grouping in a single record unrelated data; not to mention that such a record would violate WMO prescriptions about proper handling of climatic data \citep{wcdmp:cdms}.
- 
-%More importantly, the incoming table labels measurement of the same climatic variable with different names, making any attempt of data analysis impossible. To make things worse, the format of the incoming table is subject to change.
-%The most relevant task of the decoding module is to map the different names of the same climatic variable to a standardised attribute, which is also employed by the database.
-
-%\review{(RENDERLO IN MODO PI\'U ACCATTIVANTE: cos\'i sembra una nota di un manuale, evitiamole beghe interne di chi fa cosa, poniamoci come utenti / lettori) For performance reasons, the data insertion is performed with a single SQL INSERT statement per climatic variable. This means that, given the all-or-nothing behaviour of SQL statements, each record to be inserted must be valid, otherwise the whole insertion will fail. It is therefore Weatherprog's responsibility to ensure that all the data submitted to the database can actually be inserted.}
- 
-%To this end, the decoding module checks whether the data to be inserted is already present, since the insertion of a duplicate record would be rejected by the database. These checks have been optimised in order to avoid an excessive overhead due to database access: each database query is highly time consuming, fairly regardless of the complexity of the query. For this reason, it is highly impractical to check the presence of each value independently, on the contrary more complex queries, with the capability of validating a larger share of the data to be inserted, have been developed.
  
 %As said earlier, data is sent from CAR on an hourly basis, containing all the measurements of the previous 24 hours.
 To handle the hourly dispatch and provide data to the end users as soon as they are available, the system is configured to automatically have a run of WeatherProg every hour on both CAR and DPC networks, according to the schedule in \cref{Fig:weatherprog:calls}.
 This hourly run is responsible for updating the database with the raw data related to the last hour.
 Late updates of the incoming data are dealt with by a periodic run of a reanalysis pipeline, on both daily and monthly basis.
 %This daily run works on the whole 24-hour incoming table, check which time ranges are missing within the database and fills them.
-
 
 % The first part of the validation study was performed in the gpu-pedology VM using matlab-vnc instance.
 %  - open the VNC client pointing to gpu-pedology
@@ -994,7 +933,6 @@ Correct quality control outcomes are made by both true positives (non perturbed 
 Overall, the quality check module returns a total of 90.06\% of correct outcomes from the data processed during validation (\cref{tab:validation_outcomes}).
 Incorrect quality control outcomes are made by both false negatives (non perturbed data with a wrong outcome) which account for 0.46\% of the data and false positives (perturbed data with a correct outcome) which account for 5.98\% of the data. 
 Overall, the quality control module returns a total of 6.45\% of incorrect outcomes. 
-%Focusing on false positives, the distribution of random noise added to raw measurements reveals that approximately 45% falls within the range $[0, ; \pm1]$, and around 47% falls within the range $[\pm1, ; \pm2]$.
 Focusing on false positives, the distribution of random noise added to raw measurements shows that approximately 45 \% falls within the range $[0,\; \pm1]$ and about 47 \% falls within the range $[\pm1,\; \pm2]$. 
 This finding confirms that the quasi totality of perturbed data are incorrectly flagged as correct only because of the slight deviation from the raw original value.
 Only 0.73\% of the quality control outcomes are wrong (both in false positives and in false negatives) because all modules were wrong, while in the majority of the other cases the spatial module was dubious and the persistence module had unreliable auxiliary data.
@@ -1012,7 +950,6 @@ Not every request to MLR produces a prediction (about 4\% of the total data) due
 The MLR predictions are carried out on the residual outcomes flagged as wrong (18\% of the total data) detected by the quality control module.
 The absolute error is calculated as the difference between measurements and MLR predictions of the air temperature.
 It shows moderately low mean ($\sim1.13$) and standard deviation ($\sim1.25$) which underscore the goodness of the procedure also in high stress conditions such as the one created during the validation study.
-
 
 \section{Conclusions}
 This study has demonstrated the versatility and efficacy of AgriMetSupport, a Geospatial Cyber-Infrastructure (GCI), in managing and optimising agrometeorological networks within the Campania Region.
@@ -1034,18 +971,6 @@ Future research should focus on assessing the performance of these stations in q
 In conclusion, AgriMetSupport embodies a significant step forward in the search for a more integrated, efficient, and user-friendly approach to agrometeorological and sensor networks monitoring.
 Its development and implementation lead to enhanced agricultural productivity, environmental management and protection, and the prosperity of farming communities. % across the globe.
 
-%Even though the case study is routed on the management of physical networks in Campania Region, there is huge potential in deploy AgriMetSupport scaling of territory, number of both networks and stations
-
-%\note{[COPIED]}(**) The importance of tools like the GCI / WeatherProg engine that can provide a support for agencies constrained to adopt such technological advancements/improvements to raise the quality of the delivered support they can offer to farmers and stakeholders.
-
-%\note{[COPIED]} There is an evident gap between raw agrometeorological observations made by sensors in gauges in a monitoring network and the necessity to provide public access to data of good quality in the form of multipoint time series or of a temporal stack of digital maps.
-
-%\note{[COPIED]} WeatherProg is able to fill this gap and to simplify(stress this concept, i.e. that WeatherProg simplifies al operations!!!!) the implementation of services (that are mandatory!) necessary to support agriculture for todays threatens and to coadiuvate decision making in environmental management. It includes the state of the art of methods embedded in the main modules of the program.
-
-%\note{Openness of AgriMetSupport [to receive data from any source (see \citep{SAWANT_2017})] of being interoperable with systems and platform implementing  standards for sensor data and metadata in order to process measurements within the AgriMetSupport framework.}
-
-
-
 \section*{Future Perspectives}
 In addition to the demonstrated capabilities and potential future directions previously outlined, AgriMetSupport is ready to play a role in the ongoing Italian Agritech project. 
 This initiative represents a breakthrough in agricultural technology, focusing on the precision management of agricultural pests through advanced simulation models.
@@ -1060,7 +985,6 @@ As we look to the future, AgriMetSupport's integration into projects like Agrite
 
 \section*{Acknowledgements}
 \subsection*{Funding}
-%This work was supported firstly by the SOILCONS-WEB project (LIFE08 ENV/IT/000408) and secondly by the Phitosanitary Service (UOD21) of the Directorate General for Agricultural, Food and Forest Policies of the Campania Region (DG7), within the URCoFi Executive Plan (2016-2022).
 The groundwork for this research was significantly supported by funding from two sources. 
 The initial phase was underpinned by the SOILCONS-WEB project (LIFE08 ENV/IT/000408), an initiative aimed at promoting soil conservation and the adoption of sustainable land management practices. 
 It was during this foundational phase that I had the opportunity to develop the WeatherProg core engine, an endeavor that not only aligned with but also significantly contributed to the SOILCONS-WEB project's objectives of advancing environmental sustainability through technological innovation.
