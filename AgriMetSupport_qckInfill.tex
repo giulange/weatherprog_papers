@@ -486,7 +486,7 @@ At the topmost level, AgriMetSupport is constituted by central components respon
 Peripheral physical components are in charge of collecting data from the environment (i.e. sensors and stations within the network) and peripheral software components deliver web services, such as pest and IPM platforms or dashboards (e.g. enabling the agrometeorological data consulting by end-users).
 \begin{figure}[!t] % [H] ensures the figure appears exactly here
 	\centering % trim=left bottom right top
-	\includegraphics[angle=0,scale=.56,trim=4.6cm 0cm 2cm 2.4cm,clip]{figures/Fig01_AgriMetSupport.png}
+	\includegraphics[angle=0,scale=.56,trim=4.6cm 0cm 2cm 2.4cm,clip]{Fig01_AgriMetSupport.png}
 	\caption{
             High-level architecture of the Agri\-Met\-Support cyber-physical system. The figure illustrates the integration of sensors, communication protocols, WMO-compliant point database, data processing modules by WeatherProg, OGC-compliant raster database, and user interaction dashboards in an interoperable system. Interoperability is addressed through internal and external APIs. The system is hosted at the Granatellum data center, managed by CRISP and located at the Department of Agriculture, University of Napoli Federico II.
  }
@@ -522,7 +522,7 @@ The data tier is made by different data\-bases.
 One database (external data sources in \cref{Fig_tiers}) is usually maintained by a local government agency or any other entrusted/responsible entity (such as the Campania Region departments shown in Section \ref{sec:casestudy}) which is in charge of retrieving raw records by the monitoring stations within its network.
 \begin{figure}[!t] % [H] ensures the figure appears exactly here
 	\centering % trim=left bottom right top
-	\includegraphics[angle=0,scale=.4,trim=0cm 6.2cm 0cm 0cm,clip]{figures/Fig02_Tiers.png}
+	\includegraphics[angle=0,scale=.4,trim=0cm 6.2cm 0cm 0cm,clip]{Fig02_Tiers.png}
 	\caption{The three-tier infrastructure of the AgriMetSupport system. The data tier includes external and internal data sources (and APIs) such as sensors, file systems, geospatial datasets (vector and raster), and distinct databases (PostgreSQL and rasdaman). The logic tier processes the data using the WeatherProg Engine (all modules are shown in Figure 3), enabling for instance quality control and gap-filling. The presentation tier provides user interfaces such as dashboards and APIs, including internal APIs for Agri\-Met\-Support and web APIs for external services (see \cref{cyberPhysicalSystemFig}). The Docker microservices environment orchestrates the backend components within the data and logic tiers, ensuring seamless communication and scalability.}
 	\label{Fig_tiers}
 \end{figure}
@@ -542,7 +542,7 @@ The logic tier is centralized in Agri\-Met\-Support and is primarily composed of
 
 \begin{figure}[!t] % [H] ensures the figure appears exactly here
 	\centering % trim=left bottom right top
-	\includegraphics[angle=0,scale=.4,trim=0cm 0cm 0cm 0cm,clip]{figures/Fig03_SensorDataConsultingApp.png}
+	\includegraphics[angle=0,scale=.4,trim=0cm 0cm 0cm 0cm,clip]{Fig03_SensorDataConsultingApp.png}
 	\caption{ Web application for consulting sensor data. 
               An example of rainfall time series for four selected stations is displayed at the bottom.}
 	\label{Fig_webapp}
@@ -568,7 +568,7 @@ WeatherProg can facilitate the work by a farmer too, since it supports for insta
 
 \begin{figure}[!t] % [H] ensures the figure appears exactly here
 	\centering % trim=left bottom right top
-	\includegraphics[angle=0,scale=.45,trim=3cm 0cm 0cm 0cm,clip]{figures/Fig04_WeatherProg_modules.png}
+	\includegraphics[angle=0,scale=.45,trim=3cm 0cm 0cm 0cm,clip]{Fig04_WeatherProg_modules.png}
 	\caption{
             Modules of the WeatherProg Engine and their functionalities. Raw data from sensors undergo a series of processing steps, including decoding, quality control, infilling, temporal aggregation, and spatial interpolation. The resulting processed data, available as point-based and raster-based formats, is utilized both internally (via internal APIs for feeding dashboards within Agri\-Met\-Support) and externally (via web APIs) to support decision-making systems and broader applications, as illustrated in \cref{cyberPhysicalSystemFig}.
  }
@@ -599,7 +599,7 @@ A scheduler within the WeatherProg engine handles the automatic execution of mod
     % the source of this figure is the file Box01_WeatherProg_concreteOperations.pptx
     \begin{figure}[!t] % [H] ensures the figure appears exactly here
     	\centering % trim=left bottom right top
-    	\includegraphics[angle=0,scale=.45,trim=0cm 0cm 0cm 0cm,clip]{figures/Box01_WeatherProg_concreteOperations.png}
+    	\includegraphics[angle=0,scale=.45,trim=0cm 0cm 0cm 0cm,clip]{Fig05_Box01_WeatherProg_concreteOperations.png}
     	\caption{Concrete examples about each WeatherProg module.}
     	\label{Box01:WeatherProg_Operations}
     \end{figure}
@@ -653,8 +653,7 @@ Once the Agri\-Met\-Support instance is created, the execution of different Weat
 different workflows.
 \begin{figure}
 	\centering % trim=left bottom right top
-	%\includegraphics[scale=.4]{figures/WeatherProg_fig.pdf}
-	\includegraphics[scale=.6, angle=90, trim=0 2cm 7cm 2cm]{figures/WeatherProg-schedule-fig-v3.png}
+	\includegraphics[scale=.6, angle=90, trim=0 2cm 7cm 2cm]{Fig06_WeatherProg-schedule-fig-v3.png}
 	\caption{WeatherProg job schedule for air temperature in a typical Agri\-Met\-Support instance.
     Each row of the schedule is a pipeline and a total of 10 pipelines are shown.
     Standard, reanalysis and recursive pipelines are orchestrated to build homogeneous and complete agrometeorological (point and grid) database.}
@@ -884,8 +883,7 @@ Agrometeorological stations are located from \SIrange{10}{770}{\metre} above mea
 % this figure was created in RStudio research, proj:AgriMetSupport, script:paper_review#1.R
 \begin{figure}
 	\centering
-	%\includegraphics[scale=.8]{figures/rarLocations}
-    \includegraphics[scale=0.6]{figures/map_stations.png}
+    \includegraphics[scale=0.6]{Fig07_map_stations.png}
 	\caption{ Geolocation of the stations included in the agrometeorological database of Campania Region, % including both agrometeorological and hydrometeorological networks.
     encompassing both agrometeorological and hydrometeorological networks. These stations play a crucial role in monitoring regional climate conditions, supporting agricultural management, and hydrological assessments.
     % The stations available are grouped by symbol type and color according to the main sensors available. There are stations having both rain and air temperature sensors or stations having either a rain or an air temperature sensor.
@@ -1003,7 +1001,7 @@ There is no difference (all statistics are the same) between the unperturbed raw
 %The interquartile range (IQR) and the standard deviation (SD) are larger in July, suggesting more variability in temperature during summer.
 \begin{figure}[th]
 	\centering
-    \includegraphics[scale=0.4]{figures/boxplot_perturbation.png}
+    \includegraphics[scale=0.4]{Fig08_boxplot_perturbation.png}
 	\caption{ Frequency distribution for January 1, 2001. 
               The raw data selected for perturbation has the same distribution as the unperturbed raw data but differs from the perturbed data, as also shown in \cref{tab:stats_perturbation}. }
 	\label{fig:perturbation_freqDistr}
@@ -1089,12 +1087,12 @@ Furthermore, the system's architecture supports the incorporation of smart stati
 WeatherProg, serving as the backbone engine of AgriMetSupport, facilitates a detailed and user-friendly management of standard, reanalysis, or recursive pipelines, as clearly highlighted in the job scheduling shown in \cref{Fig:weatherprog:calls}.
 This includes the activation of specific modules such as data decoding, quality control, and data infilling, tailored to particular monitoring networks, agrometeorological variables, and spatial and temporal scales.
 
-The validation study performed on WeatherProg's quality control and data infilling modules illustrates the system's adeptness at processing and refining meteorological data (\cref{fig:perturbationCharts}).
+The validation study performed on WeatherProg's quality control and data infilling modules illustrates the system's effectiveness in processing and refining meteorological data (\cref{fig:perturbationCharts}).
 Using artificially perturbed data -- as explained in the noisy data generation given in \cref{sec:QcheckValidation} -- in place of raw measurements from regional bulletins allowed for a direct comparison of WeatherProg's capabilities in anomaly detection and data correction against the raw, original, and unaltered observations.
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=.30]{figures/Fig_qck_versions_v2.tif}
+	\includegraphics[scale=.30]{Fig09_qck_versions_v2.tif}
 	\caption{ Evolution performance of the air temperature quality control procedure on randomly selected Julian days in year 2022.
     Details about versions: version 1 uses a preliminary version of range, persistence and continuity control types; version 2 adds spatial control type to version 1; version 3 introduces enhancements to the continuity and spatial control types while reducing the amount of dubious outcomes; version 4 implements a smarter quality control logic, as reported in \cref{tab:qcheck_m10_airT}.
     Details about legend. TN: true negative; TP: true positive; FN: false negative; FP: false positive; DU: dubious; UU: undecided or unprocessed. }
@@ -1105,8 +1103,9 @@ Using artificially perturbed data -- as explained in the noisy data generation g
 %\statusblock{Q6R3.2}{done}{
 As delineated in the quality control logic of WeatherProg, %(\cref{sec:qcheck}), 
 the system is designed to minimize the probability of getting dubious flags, thereby reducing data ambiguity.
-Ambiguity must be reduced because a dubious singleton cannot be neither used nor discarded until either new evidence in WeatherProg logic or a human sets it as correct or wrong.
+Ambiguity must be reduced because a dubious singleton cannot be neither used nor discarded until either new evidence in Weather-Prog logic or a human sets it as correct or wrong.
 This strategic approach ensures a higher precision in anomaly detection, as evidenced by the minimal increase in mismatched outcomes (both false negatives and false positives) compared to a significant rise in accurately processed data points (both true positives and true negatives) when passing from version 1 to version 4 of the quality control module.
+%To this regard. the Net Gain Ratio is introduced as \( \frac{\Delta(\text{TP} + \text{TN})}{\Delta(\text{FP} + \text{FN})} \) to quantify the trade-off between the increase in correctly and incorrectly classified cases as model refinements are applied. It expresses how many additional correctly classified data points are obtained for each new misclassification introduced.
 \cref{fig:perturbationCharts} delineates the evolutionary trajectory of WeatherProg's quality control mechanisms, showcasing enhancements driven by iterative feedback from the validation. 
 %\statusblock{Q2R1,Q3R2.2}{done}{
 These iterations involved introducing random noise into raw measurements to simulate real-world data anomalies. 
@@ -1117,6 +1116,7 @@ In version 2, the spatial control type was added, significantly reducing mismatc
 Version 3 introduced further refinements to the continuity and spatial control types, leading to a further 6\% reduction in mismatched outcomes and a 25\% decrease in dubious flags, improving overall confidence in the results (70\% of accurately processed data point).
 Finally, version 4 implemented a more advanced quality control logic (detailed in \cref{tab:qcheck_m10_airT}), achieving optimal performance with mismatched outcomes minimized (5\%) and dubious flags reduced to just 5\%.
 This evolution demonstrates how iterative refinements, allowed by perturbation and validation, progressively enhanced WeatherProg's anomaly detection accuracy -- which is outstanding -- aligning obtained results closely with the expected performance of approximately 90\%.
+%\statusblock{Q10R3}{review}{Similar results were obtained by \citet{QC-temperature-ML-2024} with 88,9\% of true positives implementing their modular rule-based system.}
 While version 4 successfully minimizes both mismatched and dubious outcomes, further improvements could be explored to enhance reliability in handling borderline cases where uncertainty still remains.
 Future refinements may involve dynamic thresholding techniques or adaptive quality control methods to better differentiate between ambiguous and truly erroneous data.
 
@@ -1179,9 +1179,21 @@ Only 0.73\% of the quality control outcomes are wrong (both in false positives a
 This situation arises since a high volume of data was forced with noise, while in standard operational conditions these outcomes are highly reduced and therefore a higher performance of the quality control module is expected.
 In fact, real-world anomalies are predominantly dense (one station for a short interval of time) whereas in the proposed validation the noise was randomly spread across all stations and throughout any date and time within the year. 
 The remaining 3.47\% of outcomes are dubious and the majority of them (2.49\%) are perturbed data. This highlights again the expectation of a good performance in identifying possible anomalous data in operational contexts.
+
 The validation study shown in \cref{tab:validation_outcomes} highlights an impressive efficiency of WeatherProg's quality control, with a high percentage of well-fitted outcomes demonstrating the system's precision in handling agrometeorological data. 
 High percentages of well-fitted outcomes versus low percentages of mismatches are pivotal to state that a significant majority of data points were accurately processed. 
-This indicates a robust anomaly detection capability within WeatherProg, essential for reliable agrometeorological analysis.
+%This indicates a robust anomaly detection capability within WeatherProg, essential for reliable agrometeorological analysis.
+%\statusblock{Q10R3}{review}{Similar results were obtained by \citet{QC-temperature-ML-2024} with 88,9\% of true positives implementing their modular rule-based system.}
+%\statusblock{Q10R3}{review}{
+To further position these results in context, it is worth comparing them with recent literature. The quality control module achieves an accuracy of 90.06\%, with precision at 91.96\%, and a notably high recall of 99.33\%, indicating that nearly all true anomalies are correctly identified.
+In comparison, \citet{QC-temperature-ML-2024} validated their rule-based quality control system using expert-labelled events and reported a recall of 91\%. 
+While their approach relies on real-world labels, our perturbation-based validation allows fine-grained, point-level evaluation. % and quantifies detection performance across a range of artificial disturbances.
+Our methodology is conceptually aligned with \citet{QC-good2023}, who tested quality control routines in oceanography using synthetic errors, and reported true positive rates ranging between 86\% and 94\%, depending on the error type.
+These comparisons underscore the novelty and effectiveness of AgriMetSupport perturbation-based validation strategy, providing a reliable and reproducible framework for assessing data quality in agrometeorological applications.%}
+%To further position these results in context, it is worth comparing them with recent literature. For instance, \citet{QC-temperature-ML-2024} evaluated a rule-based quality control system for agricultural weather stations, reporting an event-level recall of 91\% based on expert-labelled data. Unlike that study, our approach uses synthetic perturbation, which allows for a more detailed and controlled assessment of the detection accuracy at the level of each data point. A similar strategy was used by Good et al. (2022) in the oceanographic domain, where known errors were artificially added to evaluate automatic QC systems, achieving true positive rates between 86\% and 94\%, depending on the error type.
+%Our method differs from event-based validation approaches by offering precise detection metrics for each perturbed value, which is especially useful in operational settings where fine-grained control and reproducibility are needed. Moreover, while our main focus is on anomaly detection, the validation strategy is conceptually related to recent studies on data reconstruction in environmental monitoring, such as those by Xie et al. (2021) and Lalic et al. (2024), who applied advanced machine learning methods to fill gaps in temperature records, reaching RMSEs below 0.5\si{\degreeCelsius}. However, unlike those studies, our system is designed not only to reconstruct data but also to quantify detection performance under different stress scenarios.
+%This comparison highlights the novelty of our work in both the method used for validation and the type of performance indicators produced, showing that a perturbation-based strategy can offer a reliable and reproducible way to benchmark quality control systems in agrometeorology.
+
 
 \subsection{Gap-filling}
 The quality control module produces wrong outcomes (about 22\% of the whole data) including both true negatives (21.54\%, corresponding to perturbed data identified as wrong outcomes in \cref{tab:validation_outcomes}) and false negatives (0.46\%, corresponding to unperturbed data incorrectly flagged as wrong in \cref{tab:validation_outcomes}).
@@ -1199,6 +1211,9 @@ For the remaining flagged data points, the accuracy of the gap-filling procedure
 \end{itemize}
 %\statusblock{Q3R2.3}{done}{
 Together, these evaluations confirm the effectiveness of the gap-filling strategy under standard operating conditions, further reinforced by its strong performance even under artificially induced stress conditions used for validation.
+%\statusblock{Q10R3}{review}{Comparative studies in the literature confirm the strong performance of WeatherProg, such as the work by \citet{gap-filling-lalic2024}, which reports RMSE values exceeding 1.1.}
+%\statusblock{Q10R3}{review}{
+While machine learning approaches, such as those by \citet{gap-filling-lalic2024} and \citet{gap-filling-xie2021}, focus on reconstructing missing values with RMSEs below \SI{0.5}{\degreeCelsius}, our system integrates both quality control and value reconstruction as part of a configurable validation pipeline, offering a more comprehensive solution for robust agrometeorological data processing.%}
 
 \subsection{Scientific and research contribution of Agri\-Met\-Support}\label{sec:Valuability}
 % Research Contributions:
